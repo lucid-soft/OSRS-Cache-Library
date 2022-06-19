@@ -9,6 +9,10 @@ import tech.lucidsoft.cache.filesystem.Cache;
 
 import java.io.File;
 
+/**
+ *  This is an example of the power of the cache library's dumping capabilities. This library is intended to be used as
+ *  a dependency to create your own dumps instead of being an all-in-one dumping tool.
+ */
 public class MegaDumper {
 
     private static String cachePath = "./data/cache/";
