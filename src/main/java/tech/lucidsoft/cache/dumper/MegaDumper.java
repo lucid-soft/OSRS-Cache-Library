@@ -42,7 +42,7 @@ public class MegaDumper {
         // objectManager.setVerboseDefinitions(true);
         objectManager.load();
 
-        // objectManager.exportAllToToml(new File("dumps/objects/toml/"));
+        objectManager.exportAllToToml(new File("dumps/objects/toml/"));
         objectManager.exportAllToJson(new File("dumps/objects/json/"));
 
         npcManager = new NpcManager(cache);
@@ -50,11 +50,11 @@ public class MegaDumper {
         // npcManager.setVerboseDefinitions(true);
         npcManager.load();
 
-        // npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
-        // npcManager.exportAllToJson(new File("dumps/npcs/json/"));
+        npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
+        npcManager.exportAllToJson(new File("dumps/npcs/json/"));
 
         modelManager = new ModelManager(cache);
-        // modelManager.setVerbose(true);
+        modelManager.setVerbose(true);
         modelManager.load();
 
         // Dumps just one model
@@ -70,13 +70,13 @@ public class MegaDumper {
 
         // Dumps all object models
         for(ObjectDefinition def : objectManager.getDefinitions().values()) {
-            // System.out.println("Dumping models for object ID: " + def.getId() + " Name: " + def.getName());
-            // modelManager.dumpObjectModels(def, "dumps/objects/models/");
+            System.out.println("Dumping models for object ID: " + def.getId() + " Name: " + def.getName());
+            modelManager.dumpObjectModels(def, "dumps/objects/models/");
         }
 
         for(NpcDefinition def : npcManager.getDefinitions().values()) {
-            // System.out.println("Dumping models for NPC ID: " + def.getId() + " Name: " + def.getName());
-            // modelManager.dumpNpcModels(def, "dumps/npcs/models/");
+            System.out.println("Dumping models for NPC ID: " + def.getId() + " Name: " + def.getName());
+            modelManager.dumpNpcModels(def, "dumps/npcs/models/");
         }
     }
 }

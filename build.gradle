@@ -5,6 +5,12 @@ plugins {
 apply plugin: 'java'
 version = '0.5-BETA'
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'tech.lucidsoft.cache.dumper.MegaDumper'
+    }
+}
+
 repositories {
     mavenCentral()
 }
