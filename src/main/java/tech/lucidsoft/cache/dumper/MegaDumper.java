@@ -71,7 +71,7 @@ public class MegaDumper {
 
         long endTime = System.currentTimeMillis();
         long diff = endTime - startTime;
-        System.out.println("Dumping complete! Took: " + String.format("%,.2f", diff / 1000) + " seconds");
+        System.out.println("Dumping complete! Took: " + String.format("%,.2f", (float)diff / 1000) + " seconds");
     }
 
     private void dumpingExamples() {
