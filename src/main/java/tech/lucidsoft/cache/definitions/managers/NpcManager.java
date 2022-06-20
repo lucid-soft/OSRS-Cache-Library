@@ -25,17 +25,17 @@ public class NpcManager {
     }
 
     public void load() {
-        if(isVerbose()) {
+        if (isVerbose()) {
             System.out.println("Loading NPC Definitions...");
         }
 
         NpcLoader loader = new NpcLoader();
-        for(File f : npcDefGroup.getFiles()) {
+        for (File f : npcDefGroup.getFiles()) {
             NpcDefinition def = loader.load(f.getID(), f.getData());
             definitions.put(f.getID(), def);
         }
 
-        if(isVerbose()) {
+        if (isVerbose()) {
             System.out.println("Loaded " + definitions.size() + " NPC definitions.");
         }
     }
@@ -57,7 +57,7 @@ public class NpcManager {
     }
 
     public void exportAllToToml(java.io.File directory) {
-        for(NpcDefinition def : definitions.values()) {
+        for (NpcDefinition def : definitions.values()) {
             exportToToml(def, directory);
         }
     }
@@ -79,7 +79,7 @@ public class NpcManager {
     }
 
     public void exportAllToJson(java.io.File directory) {
-        for(NpcDefinition def : definitions.values()) {
+        for (NpcDefinition def : definitions.values()) {
             exportToJson(def, directory);
         }
     }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static tech.lucidsoft.cache.util.DefUtil.newline;
+
 public class NpcExporter {
 
     private NpcDefinition def;
@@ -31,7 +33,7 @@ public class NpcExporter {
         out += "[[npc]]" + newline();
         out += format("id", def.getId());
         out += format("name", def.getName());
-        if(Cache.getCacheRevision() > 199) {
+        if (Cache.getCacheRevision() > 199) {
             out += format("category", def.getCategory());
         } else {
             System.out.println("Ignoring category due to Cache.cacheRevision being set to" + Cache.getCacheRevision() + ".");
@@ -77,7 +79,7 @@ public class NpcExporter {
         return out;
     }
 
-    public String format(String memberName, Object member) {
+    private String format(String memberName, Object member) {
         String out = "";
         if (member == null) {
             if (memberName.equals("parameters")) {
@@ -148,10 +150,6 @@ public class NpcExporter {
             System.out.println("Unrecognized type for member: " + memberName + "type=" + member != null ? member.getClass() : "-null object-");
         }
         return out;
-    }
-
-    private String newline() {
-        return "\r\n";
     }
 
     public String getTomlString() {

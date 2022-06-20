@@ -1,7 +1,9 @@
 package tech.lucidsoft.cache.dumper;
 
+import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
+import tech.lucidsoft.cache.definitions.managers.ItemManager;
 import tech.lucidsoft.cache.definitions.managers.ModelManager;
 import tech.lucidsoft.cache.definitions.managers.NpcManager;
 import tech.lucidsoft.cache.definitions.managers.ObjectManager;
@@ -20,18 +22,19 @@ public class MegaDumper {
 
     private NpcManager npcManager;
     private ObjectManager objectManager;
+    private ItemManager itemManager;
     private ModelManager modelManager;
 
     public static void main(String[] args) {
-        if(System.getProperty("cache") != null) {
+        if (System.getProperty("cache") != null) {
             cachePath = System.getProperty("cache");
-        } else if(args.length > 0) {
+        } else if (args.length > 0) {
             cachePath = args[0];
         }
 
-        if(System.getProperty("revision") != null) {
+        if (System.getProperty("revision") != null) {
             revision = Integer.parseInt(System.getProperty("revision"));
-        } else if(args.length > 1) {
+        } else if (args.length > 1) {
             revision = Integer.parseInt(args[1]);
         }
 
@@ -46,16 +49,24 @@ public class MegaDumper {
         // objectManager.setVerboseDefinitions(true);
         objectManager.load();
 
-        objectManager.exportAllToToml(new File("dumps/objects/toml/"));
-        objectManager.exportAllToJson(new File("dumps/objects/json/"));
+        // objectManager.exportAllToToml(new File("dumps/objects/toml/"));
+        // objectManager.exportAllToJson(new File("dumps/objects/json/"));
 
         npcManager = new NpcManager(cache);
         npcManager.setVerbose(true);
         // npcManager.setVerboseDefinitions(true);
         npcManager.load();
 
-        npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
-        npcManager.exportAllToJson(new File("dumps/npcs/json/"));
+        // npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
+        // npcManager.exportAllToJson(new File("dumps/npcs/json/"));
+
+        itemManager = new ItemManager(cache);
+        itemManager.setVerbose(true);
+        // itemManager.setVerboseDefinitions(true);
+        itemManager.load();
+
+        itemManager.exportAllToToml(new File("dumps/items/toml/"));
+        itemManager.exportAllToJson(new File("dumps/items/json/"));
 
         modelManager = new ModelManager(cache);
         modelManager.setVerbose(true);
@@ -66,21 +77,26 @@ public class MegaDumper {
 
         // Dumps all models
         for (int i = 0; i < modelManager.getModels().length; i++) {
-            modelManager.dumpModel(i, new File("dumps/models/"), i + "");
+            // modelManager.dumpModel(i, new File("dumps/models/"), i + "");
         }
 
         // Dumps one object model
         // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
 
         // Dumps all object models
-        for(ObjectDefinition def : objectManager.getDefinitions().values()) {
+        for (ObjectDefinition def : objectManager.getDefinitions().values()) {
             System.out.println("Dumping models for object ID: " + def.getId() + " Name: " + def.getName());
-            modelManager.dumpObjectModels(def, "dumps/objects/models/");
+            // modelManager.dumpObjectModels(def, "dumps/objects/models/");
         }
 
-        for(NpcDefinition def : npcManager.getDefinitions().values()) {
+        for (NpcDefinition def : npcManager.getDefinitions().values()) {
             System.out.println("Dumping models for NPC ID: " + def.getId() + " Name: " + def.getName());
-            modelManager.dumpNpcModels(def, "dumps/npcs/models/");
+            // modelManager.dumpNpcModels(def, "dumps/npcs/models/");
+        }
+
+        for (ItemDefinition def : itemManager.getDefinitions().values()) {
+            System.out.println("Dumping models for item ID: " + def.getId() + " Name: " + def.getName());
+            modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");
         }
     }
 }

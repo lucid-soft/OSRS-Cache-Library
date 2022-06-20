@@ -2,24 +2,25 @@ package tech.lucidsoft.cache.definitions.exporters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tech.lucidsoft.cache.definitions.managers.ObjectManager;
+import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.filesystem.Cache;
-import tech.lucidsoft.cache.definitions.ObjectDefinition;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static tech.lucidsoft.cache.util.DefUtil.newline;
 
-public class ObjectExporter {
+public class ItemExporter {
 
-    private final ObjectDefinition def;
+    private ItemDefinition def;
     private final Gson gson;
     private final String toml;
 
-    public ObjectExporter(ObjectDefinition objectDefinition) {
-        this.def = objectDefinition;
+    public ItemExporter(ItemDefinition itemDefinition) {
+        this.def = itemDefinition;
         GsonBuilder builder = new GsonBuilder()
                 .setPrettyPrinting();
         gson = builder.create();
@@ -28,63 +29,57 @@ public class ObjectExporter {
 
     private String defAsToml() {
         String out = "";
-        out += "[[object]]" + newline();
+        out += "[[item]]" + newline();
         out += format("id", def.getId());
-        if(Cache.getCacheRevision() > 199) {
-            out += format("category", def.getCategory());
-        } else {
-            System.out.println("Ignoring category due to Cache.cacheRevision being set to" + Cache.getCacheRevision() + ".");
-            System.out.println("Category was introduced in revision 199.");
-        }
+        out += format("inventorymodelid", def.getInventoryModelId());
         out += format("name", def.getName());
-        out += format("varbit", def.getVarbit());
-        out += format("optionsinvisible", def.getOptionsInvisible());
-        out += format("models", def.getModels());
-        out += format("types", def.getTypes());
-        out += format("transformedids", def.getTransformedIds());
-        out += format("ambientsoundid", def.getAmbientSoundId());
-        out += format("varp", def.getVarp());
-        out += format("supportitems", def.getSupportItems());
-        out += format("anintarray100", def.getAnIntArray100());
-        out += format("mapiconid", def.getMapIconId());
-        out += format("sizex", def.getSizeX());
-        out += format("cliptype", def.getClipType());
-        out += format("rotated", def.isRotated());
-        out += format("sizey", def.getSizeY());
-        out += format("projectileclip", def.isProjectileClip());
-        out += format("anint455", def.getAnInt455());
-        out += format("nonflatshading", def.isNonFlatShading());
-        out += format("contouredground", def.getContouredGround());
-        out += format("anint456", def.getAnInt456());
-        out += format("modelclipped", def.isModelClipped());
-        out += format("ambient", def.getAmbient());
-        out += format("options", def.getOptions());
-        out += format("contrast", def.getContrast());
-        out += format("anint457", def.getAnInt457());
-        out += format("hollow", def.isHollow());
-        out += format("animationid", def.getAnimationId());
-        out += format("modelsizex", def.getModelSizeX());
-        out += format("decordisplacement", def.getDecorDisplacement());
-        out += format("modelsizeheight", def.getModelSizeHeight());
-        out += format("modelsizey", def.getModelSizeY());
-        out += format("modelcolours", def.getModelColours());
-        out += format("clipped", def.isClipped());
-        out += format("modeltexture", def.getModelTexture());
-        out += format("mapsceneid", def.getMapSceneId());
-        out += format("replacementcolours", def.getReplacementColours());
-        out += format("offsetx", def.getOffsetX());
-        out += format("replacementtextures", def.getReplacementTextures());
-        out += format("offsetheight", def.getOffsetHeight());
+        out += format("zoom", def.getZoom());
+        out += format("modelpitch", def.getModelPitch());
+        out += format("modelroll", def.getModelRoll());
+        out += format("offsety", def.getOffsetX());
         out += format("offsety", def.getOffsetY());
-        out += format("obstructsground", def.isObstructsGround());
-        out += format("accessblockflag", def.getAccessBlockFlag());
-        out += format("finaltransformation", def.getFinalTransformation());
-        out += format("randomizedanimstart", def.isRandomizedAnimStart());
-        out += format("parameters", def.getParameters());
-
-        if(ObjectManager.isVerboseDefinitions()) {
-            System.out.println(out);
+        out += format("stackable" , def.getIsStackable());
+        out += format("price" , def.getPrice());
+        out += format("members" , def.isMembers());
+        out += format("primarymalemodel" , def.getPrimaryMaleModel());
+        out += format("maleoffset" , def.getMaleOffset());
+        out += format("secondarymalemodel" , def.getSecondaryMaleModel());
+        out += format("primaryfemalemodel" , def.getPrimaryFemaleModel());
+        out += format("femaleoffset" , def.getFemaleOffset());
+        out += format("secondaryfemalemodel" , def.getSecondaryFemaleModel());
+        out += format("groundoptions" , def.getGroundOptions());
+        out += format("inventoryoptions" , def.getInventoryOptions());
+        out += format("originalcolours", def.getOriginalColours());
+        out += format("replacementcolours", def.getReplacementColours());
+        out += format("originaltextures", def.getOriginalTextures());
+        out += format("replacementtextures", def.getReplacementTextures());
+        out += format("shiftclickindex", def.getShiftClickIndex());
+        out += format("grandexchange" , def.isGrandExchange());
+        out += format("tertiarymalemodel" , def.getTertiaryMaleModel());
+        out += format("tertiaryfemalemodel" , def.getTertiaryFemaleModel());
+        out += format("primarymaleheadmodelid" , def.getPrimaryMaleHeadModelId());
+        out += format("primaryfemaleheadmodelid" , def.getPrimaryFemaleHeadModelId());
+        out += format("secondarymaleheadmodelid" , def.getSecondaryMaleHeadModelId());
+        out += format("secondaryfemaleheadmodelid" , def.getSecondaryFemaleHeadModelId());
+        if (Cache.getCacheRevision() > 199) {
+            out += format("category" , def.getCategory());
         }
+        out += format("modelyaw", def.getModelYaw());
+        out += format("notedid" , def.getNotedId());
+        out += format("notedtemplate" , def.getNotedTemplate());
+        out += format("stackids" , def.getStackIds());
+        out += format("stackamounts" , def.getStackAmounts());
+        out += format("resizex", def.getResizeX());
+        out += format("resizey", def.getResizeY());
+        out += format("resizez", def.getResizeZ());
+        out += format("ambient", def.getAmbient());
+        out += format("contrast", def.getContrast());
+        out += format("teamid", def.getTeamId());
+        out += format("bindid" , def.getBindId());
+        out += format("bindtemplateid" , def.getBindTemplateId());
+        out += format("placeholderid" , def.getPlaceholderId());
+        out += format("placeholdertemplate" , def.getPlaceholderTemplate());
+        out += format("parameters", def.getParameters());
 
         return out;
     }
@@ -94,12 +89,13 @@ public class ObjectExporter {
         if (member == null) {
             if (memberName.equals("parameters")) {
                 member = new HashMap<Integer, Object>();
-            } else if (memberName.equals("models") || memberName.equals("types") || memberName.equals("transformedids") ||
-                    memberName.equals("anintarray100") || memberName.equals("modelcolours") || memberName.equals("modeltexture") ||
-                    memberName.equals("replacementcolours") || memberName.equals("replacementtextures")) {
+            } else if (memberName.equals("stackids") || memberName.equals("stackamounts") || memberName.equals("originalcolours")
+                    || memberName.equals("replacementcolours") || memberName.equals("originaltextures") || memberName.equals("replacementtextures")) {
                 member = new int[0];
-            } else if (memberName.equals("options")) {
+            } else if (memberName.equals("groundoptions")) {
                 member = new String[]{null, null, "Take", null, null};
+            } else if (memberName.equals("inventoryoptions")) {
+                member = new String[]{null, null, null, null, "Drop"};
             }
         }
         if (member instanceof Integer) {
@@ -130,7 +126,7 @@ public class ObjectExporter {
                 }
             }
             out += "]" + newline();
-        }else if (member instanceof String[]) {
+        } else if (member instanceof String[]) {
             out += memberName + "=[";
             if (member != null) {
                 String[] casted = (String[]) member;
@@ -157,7 +153,7 @@ public class ObjectExporter {
             }
             out += newline();
         } else {
-            System.out.println("Unrecognized type for member: " + memberName + " type=" + (member != null ? member.getClass() : "-null object-"));
+            System.out.println("Unrecognized type for member: " + memberName + "type=" + member != null ? member.getClass() : "-null object-");
         }
         return out;
     }
@@ -166,7 +162,7 @@ public class ObjectExporter {
         return toml;
     }
 
-    public void exportToToml(File directory, String filename) throws  IOException {
+    public void exportToToml(File directory, String filename) throws IOException {
         if (!directory.exists()) {
             directory.mkdirs();
         }
