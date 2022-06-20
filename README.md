@@ -1,7 +1,8 @@
-# OSRS-Cache-Library
-A cache library and data dumping tool for the Old School RuneScape cache files
+# OSRS Cache Library
+A cache library and data dumping tool for the Old School RuneScape cache files.
+It currently supports reading definitions up to revision 206.
 
-Examples:
+## Code Examples
 
 To dump object configs:
 
@@ -33,9 +34,8 @@ To dump models:
         modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
         
                 
-To-Do List:
+##To-Do List:
 
-    - Add Item config/model dumping
     - Add other config dumpers
     - Add better CLI support
     - Maybe add a GUI
