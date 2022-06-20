@@ -1,6 +1,7 @@
 # OSRS-Cache-Library
 A cache library and data dumping tool for the Old School RuneScape cache files
 
+Examples:
 
 To dump object configs:
 
