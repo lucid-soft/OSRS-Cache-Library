@@ -25,6 +25,9 @@ public class ModelManager {
     }
 
     public void load() {
+        if(isVerbose()) {
+            System.out.println("Loading models...");
+        }
         Archive modelArchive = cache.getArchive(ArchiveType.MODELS);
         models = new Model[modelArchive.getHighestGroupId()];
         for(int i = 0; i < modelArchive.getHighestGroupId(); i++) {

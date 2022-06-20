@@ -43,6 +43,9 @@ public class EnumManager {
     }
 
     public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Enum TOML to: " + directory.getPath());
+        }
         exportToToml(getEnumDef(id), directory);
     }
 
@@ -58,12 +61,18 @@ public class EnumManager {
     }
 
     public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Enum TOMLs to: " + directory.getPath());
+        }
         for (EnumDefinition def : definitions.values()) {
             exportToToml(def, directory);
         }
     }
 
     public void exportToJson(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Enum JSON to: " + directory.getPath());
+        }
         exportToJson(getEnumDef(id), directory);
     }
 
@@ -79,6 +88,9 @@ public class EnumManager {
     }
 
     public void exportAllToJson(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Enum JSONs to: " + directory.getPath());
+        }
         for (EnumDefinition def : definitions.values()) {
             exportToJson(def, directory);
         }

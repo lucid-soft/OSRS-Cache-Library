@@ -128,7 +128,7 @@ public class ItemExporter {
             if (member != null) {
                 String[] casted = (String[]) member;
                 for (int i = 0; i < casted.length; i++) {
-                    out += "\"" + (casted[i].equals("null") ? "" : casted) + "\"";
+                    out += "\"" + (casted[i] == null ? "" : casted) + "\"";
                     if (i != casted.length - 1) {
                         out += ", ";
                     }

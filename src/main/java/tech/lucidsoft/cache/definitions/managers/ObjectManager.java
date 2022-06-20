@@ -41,10 +41,15 @@ public class ObjectManager {
     }
 
     public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Object TOML to: " + directory.getPath());
+        }
         exportToToml(getObjectDef(id), directory);
     }
 
     public void exportToToml(ObjectDefinition def, java.io.File directory) {
+        directory.mkdirs();
+
         ObjectExporter exporter = new ObjectExporter(def);
         String cleansedName = DefUtil.cleanseName(def.getName());
         try {
@@ -55,12 +60,18 @@ public class ObjectManager {
     }
 
     public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Object TOMLs to: " + directory.getPath());
+        }
         for(ObjectDefinition def : definitions.values()) {
             exportToToml(def, directory);
         }
     }
 
     public void exportToJson(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Object JSON to: " + directory.getPath());
+        }
         exportToJson(getObjectDef(id), directory);
     }
 
@@ -77,6 +88,9 @@ public class ObjectManager {
     }
 
     public void exportAllToJson(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Object JSONs to: " + directory.getPath());
+        }
         for(ObjectDefinition def : definitions.values()) {
             exportToJson(def, directory);
         }

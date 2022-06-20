@@ -40,6 +40,9 @@ public class UnderlayManager {
     }
 
     public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Underlay TOML to: " + directory.getPath());
+        }
         exportToToml(getUnderlayDef(id), directory);
     }
 
@@ -55,12 +58,18 @@ public class UnderlayManager {
     }
 
     public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Underlay TOMLs to: " + directory.getPath());
+        }
         for (UnderlayDefinition def : definitions.values()) {
             exportToToml(def, directory);
         }
     }
 
     public void exportToJson(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Underlay JSON to: " + directory.getPath());
+        }
         exportToJson(getUnderlayDef(id), directory);
     }
 
@@ -76,6 +85,9 @@ public class UnderlayManager {
     }
 
     public void exportAllToJson(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Underlay JSONs to: " + directory.getPath());
+        }
         for (UnderlayDefinition def : definitions.values()) {
             exportToJson(def, directory);
         }

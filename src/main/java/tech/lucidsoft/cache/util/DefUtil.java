@@ -17,6 +17,8 @@ public class DefUtil {
         }
         cleansed = cleansed.replace("</col>", "");
         cleansed = cleansed.replace(" ", "_");
+        cleansed = cleansed.replace(",", "");
+        cleansed = cleansed.replace(".", "");
         cleansed = cleansed.replace("/", "_");
         cleansed = cleansed.replace("?", "_");
         cleansed = cleansed.toLowerCase();
@@ -43,6 +45,8 @@ public class DefUtil {
         }
         cleansed = cleansed.replace("</col>", "");
         cleansed = cleansed.replace(" ", "_");
+        cleansed = cleansed.replace(",", "");
+        cleansed = cleansed.replace(".", "");
         cleansed = cleansed.replace("/", "_");
         cleansed = cleansed.replace("?", "_");
         cleansed = cleansed.toLowerCase();

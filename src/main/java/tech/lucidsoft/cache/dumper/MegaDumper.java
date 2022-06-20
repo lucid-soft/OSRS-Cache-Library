@@ -49,20 +49,20 @@ public class MegaDumper {
 
         loadModels(cache);
 
-        objectManager.exportAllToToml(new File("dumps/objects/toml/"));
-        objectManager.exportAllToJson(new File("dumps/objects/json/"));
+        objectManager.exportAllToToml(new File("dumps/toml/objects/"));
+        objectManager.exportAllToJson(new File("dumps/json/objects/"));
 
-        npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
-        npcManager.exportAllToJson(new File("dumps/npcs/json/"));
+        npcManager.exportAllToToml(new File("dumps/toml/npc/"));
+        npcManager.exportAllToJson(new File("dumps/json/npc/"));
 
-        itemManager.exportAllToToml(new File("dumps/items/toml/"));
-        itemManager.exportAllToJson(new File("dumps/items/json/"));
+        itemManager.exportAllToToml(new File("dumps/toml/items/"));
+        itemManager.exportAllToJson(new File("dumps/json/items/"));
 
-        enumManager.exportAllToToml(new File("dumps/enums/toml/"));
-        enumManager.exportAllToJson(new File("dumps/enums/json/"));
+        enumManager.exportAllToToml(new File("dumps/toml/enums/"));
+        enumManager.exportAllToJson(new File("dumps/json/enums/"));
 
-        underlayManager.exportAllToToml(new File("dumps/underlays/toml/"));
-        underlayManager.exportAllToJson(new File("dumps/underlays/json/"));
+        underlayManager.exportAllToToml(new File("dumps/toml/underlays/"));
+        underlayManager.exportAllToJson(new File("dumps/json/underlays/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -146,7 +146,7 @@ public class MegaDumper {
     }
 
     public void dumpItemModels() {
-
+        // Dumps all item models
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
             modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");

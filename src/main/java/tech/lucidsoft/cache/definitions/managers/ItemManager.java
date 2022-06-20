@@ -41,6 +41,9 @@ public class ItemManager {
     }
 
     public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Item TOML to: " + directory.getPath());
+        }
         exportToToml(getItemDef(id), directory);
     }
 
@@ -58,12 +61,18 @@ public class ItemManager {
     }
 
     public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Item TOMLs to: " + directory.getPath());
+        }
         for (ItemDefinition def : definitions.values()) {
             exportToToml(def, directory);
         }
     }
 
     public void exportToJson(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Item JSON to: " + directory.getPath());
+        }
         exportToJson(getItemDef(id), directory);
     }
 
@@ -81,6 +90,9 @@ public class ItemManager {
     }
 
     public void exportAllToJson(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Item JSONs to: " + directory.getPath());
+        }
         for (ItemDefinition def : definitions.values()) {
             exportToJson(def, directory);
         }
