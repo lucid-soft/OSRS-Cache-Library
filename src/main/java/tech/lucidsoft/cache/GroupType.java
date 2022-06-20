@@ -2,14 +2,14 @@ package tech.lucidsoft.cache;
 
 public enum GroupType
 {
-    UNDERLAY(1),
+    UNDERLAY(1), // Done
     IDENTKIT(3),
     OVERLAY(4),
     INV(5),
-    OBJECT(6),
-    ENUM(8),
-    NPC(9),
-    ITEM(10),
+    OBJECT(6), // Done
+    ENUM(8), // Done
+    NPC(9), // Done
+    ITEM(10), // Done
     PARAMS(11),
     SEQUENCE(12),
     SPOTANIM(13),

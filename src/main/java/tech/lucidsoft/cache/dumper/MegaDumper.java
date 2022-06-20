@@ -20,6 +20,7 @@ public class MegaDumper {
     private ObjectManager objectManager;
     private ItemManager itemManager;
     private EnumManager enumManager;
+    private UnderlayManager underlayManager;
 
     private ModelManager modelManager;
 
@@ -44,6 +45,8 @@ public class MegaDumper {
         loadNpcDefinitions(cache);
         loadItemDefinitions(cache);
         loadEnumDefinitions(cache);
+        loadUnderlayDefinitions(cache);
+
         loadModels(cache);
 
         objectManager.exportAllToToml(new File("dumps/objects/toml/"));
@@ -57,6 +60,9 @@ public class MegaDumper {
 
         enumManager.exportAllToToml(new File("dumps/enums/toml/"));
         enumManager.exportAllToJson(new File("dumps/enums/json/"));
+
+        underlayManager.exportAllToToml(new File("dumps/underlays/toml/"));
+        underlayManager.exportAllToJson(new File("dumps/underlays/json/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -110,6 +116,13 @@ public class MegaDumper {
         enumManager.load();
     }
 
+    public void loadUnderlayDefinitions(Cache cache) {
+        underlayManager = new UnderlayManager(cache);
+        underlayManager.setVerbose(true);
+        // underlayManager.setVerboseDefinitions(true);
+        underlayManager.load();
+    }
+
     public void loadModels(Cache cache) {
         modelManager = new ModelManager(cache);
         modelManager.setVerbose(true);
@@ -133,7 +146,7 @@ public class MegaDumper {
     }
 
     public void dumpItemModels() {
-        // Dumps all item models
+
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
             modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");
