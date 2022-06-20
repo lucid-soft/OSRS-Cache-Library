@@ -115,7 +115,9 @@ public class ModelManager {
     public void dumpModel(int id, File directory, String filename) {
         java.io.File datFile = null;
         try {
-            directory.mkdirs();
+            if(!directory.exists()) {
+                directory.mkdirs();
+            }
 
             datFile = new java.io.File(directory, filename + ".dat");
             DataOutputStream dos = new DataOutputStream(new FileOutputStream(datFile));

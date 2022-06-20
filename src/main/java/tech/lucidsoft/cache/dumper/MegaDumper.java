@@ -48,34 +48,31 @@ public class MegaDumper {
         startTime = System.currentTimeMillis();
         Cache cache = Cache.openCache(cachePath, revision);
 
-        objectManager = new ObjectManager(cache);
-        objectManager.setVerbose(true);
-        // objectManager.setVerboseDefinitions(true);
-        objectManager.load();
+        loadObjectDefinitions(cache);
+        loadNpcDefinitions(cache);
+        loadItemDefinitions(cache);
+        loadModels(cache);
 
         objectManager.exportAllToToml(new File("dumps/objects/toml/"));
         objectManager.exportAllToJson(new File("dumps/objects/json/"));
 
-        npcManager = new NpcManager(cache);
-        npcManager.setVerbose(true);
-        // npcManager.setVerboseDefinitions(true);
-        npcManager.load();
-
         npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
         npcManager.exportAllToJson(new File("dumps/npcs/json/"));
-
-        itemManager = new ItemManager(cache);
-        itemManager.setVerbose(true);
-        // itemManager.setVerboseDefinitions(true);
-        itemManager.load();
 
         itemManager.exportAllToToml(new File("dumps/items/toml/"));
         itemManager.exportAllToJson(new File("dumps/items/json/"));
 
-        modelManager = new ModelManager(cache);
-        modelManager.setVerbose(true);
-        modelManager.load();
+        dumpingExamples();
+        dumpObjectModels();
+        dumpNpcModels();
+        dumpItemModels();
 
+        long endTime = System.currentTimeMillis();
+        long diff = endTime - startTime;
+        System.out.println("Dumping complete! Took: " + String.format("%,.2f", diff / 1000) + " seconds");
+    }
+
+    private void dumpingExamples() {
         // Dumps just one model
         // modelManager.dumpModel(1, new File("dumps/models/"), "1");
 
@@ -87,26 +84,56 @@ public class MegaDumper {
 
         // Dumps one object model
         // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
+    }
 
+    public void loadObjectDefinitions(Cache cache) {
+        objectManager = new ObjectManager(cache);
+        objectManager.setVerbose(true);
+        // objectManager.setVerboseDefinitions(true);
+        objectManager.load();
+    }
+
+    public void loadNpcDefinitions(Cache cache) {
+        npcManager = new NpcManager(cache);
+        npcManager.setVerbose(true);
+        // npcManager.setVerboseDefinitions(true);
+        npcManager.load();
+    }
+
+    public void loadItemDefinitions(Cache cache) {
+        itemManager = new ItemManager(cache);
+        itemManager.setVerbose(true);
+        // itemManager.setVerboseDefinitions(true);
+        itemManager.load();
+    }
+
+    public void loadModels(Cache cache) {
+        modelManager = new ModelManager(cache);
+        modelManager.setVerbose(true);
+        modelManager.load();
+    }
+
+    public void dumpObjectModels() {
         // Dumps all object models
         System.out.println("Dumping Object Models...");
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
             modelManager.dumpObjectModels(def, "dumps/objects/models/");
         }
+    }
 
+    public void dumpNpcModels() {
         // Dumps all npc models
         System.out.println("Dumping NPC Models...");
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
             modelManager.dumpNpcModels(def, "dumps/npcs/models/");
         }
+    }
 
+    public void dumpItemModels() {
         // Dumps all item models
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
             modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");
         }
-        long endTime = System.currentTimeMillis();
-        long diff = endTime - startTime;
-        System.out.println("Dumping complete! Took: " + String.format("%,.2f", diff / 1000) + " seconds");
     }
 }
