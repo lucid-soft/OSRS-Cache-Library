@@ -34,8 +34,12 @@ To dump models:
         modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
         
                 
-##To-Do List:
+## To-Do List:
 
     - Add other config dumpers
     - Add better CLI support
     - Maybe add a GUI
+
+### Credits
+    - Graham (mostly his cache library)
+    - Adam from RuneLite

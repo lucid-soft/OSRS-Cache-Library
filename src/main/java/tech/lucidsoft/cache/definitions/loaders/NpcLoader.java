@@ -156,6 +156,24 @@ public class NpcLoader {
             case 111:
                 def.setFamiliar(true);
                 return;
+            case 114:
+                def.setRunAnimation(buffer.readUnsignedShort());
+                return;
+            case 115:
+                def.setRunAnimation(buffer.readUnsignedShort());
+                def.setRunRotate180Animation(buffer.readUnsignedShort());
+                def.setRunRotateLeftAnimation(buffer.readUnsignedShort());
+                def.setRunRotateRightAnimation(buffer.readUnsignedShort());
+                return;
+            case 116:
+                def.setCrawlAnimation(buffer.readUnsignedShort());
+                return;
+            case 117:
+                def.setCrawlAnimation(buffer.readUnsignedShort());
+                def.setCrawlRotate180Animation(buffer.readUnsignedShort());
+                def.setCrawlRotateLeftAnimation(buffer.readUnsignedShort());
+                def.setCrawlRotateRightAnimation(buffer.readUnsignedShort());
+                return;
             case 249:
                 def.setParameters(buffer.readParameters());
                 return;

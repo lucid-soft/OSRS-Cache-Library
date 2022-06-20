@@ -41,6 +41,14 @@ public class NpcDefinition {
     private int field3568;
     private int field3580;
     private int finalTransmogrification;
+    private int runAnimation;
+    private int runRotate180Animation;
+    private int runRotateLeftAnimation;
+    private int runRotateRightAnimation;
+    private int crawlAnimation;
+    private int crawlRotate180Animation;
+    private int crawlRotateLeftAnimation;
+    private int crawlRotateRightAnimation;
     private HashMap<Integer, Object> parameters;
 
     public NpcDefinition() {
@@ -357,5 +365,69 @@ public class NpcDefinition {
 
     public void setParameters(HashMap<Integer, Object> parameters) {
         this.parameters = parameters;
+    }
+
+    public int getRunAnimation() {
+        return runAnimation;
+    }
+
+    public void setRunAnimation(int runAnimation) {
+        this.runAnimation = runAnimation;
+    }
+
+    public int getRunRotate180Animation() {
+        return runRotate180Animation;
+    }
+
+    public void setRunRotate180Animation(int runRotate180Animation) {
+        this.runRotate180Animation = runRotate180Animation;
+    }
+
+    public int getRunRotateLeftAnimation() {
+        return runRotateLeftAnimation;
+    }
+
+    public void setRunRotateLeftAnimation(int runRotateLeftAnimation) {
+        this.runRotateLeftAnimation = runRotateLeftAnimation;
+    }
+
+    public int getRunRotateRightAnimation() {
+        return runRotateRightAnimation;
+    }
+
+    public void setRunRotateRightAnimation(int runRotateRightAnimation) {
+        this.runRotateRightAnimation = runRotateRightAnimation;
+    }
+
+    public int getCrawlAnimation() {
+        return crawlAnimation;
+    }
+
+    public void setCrawlAnimation(int crawlAnimation) {
+        this.crawlAnimation = crawlAnimation;
+    }
+
+    public int getCrawlRotate180Animation() {
+        return crawlRotate180Animation;
+    }
+
+    public void setCrawlRotate180Animation(int crawlRotate180Animation) {
+        this.crawlRotate180Animation = crawlRotate180Animation;
+    }
+
+    public int getCrawlRotateLeftAnimation() {
+        return crawlRotateLeftAnimation;
+    }
+
+    public void setCrawlRotateLeftAnimation(int crawlRotateLeftAnimation) {
+        this.crawlRotateLeftAnimation = crawlRotateLeftAnimation;
+    }
+
+    public int getCrawlRotateRightAnimation() {
+        return crawlRotateRightAnimation;
+    }
+
+    public void setCrawlRotateRightAnimation(int crawlRotateRightAnimation) {
+        this.crawlRotateRightAnimation = crawlRotateRightAnimation;
     }
 }
