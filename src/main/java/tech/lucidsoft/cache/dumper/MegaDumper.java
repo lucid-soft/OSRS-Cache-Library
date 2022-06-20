@@ -49,16 +49,16 @@ public class MegaDumper {
         // objectManager.setVerboseDefinitions(true);
         objectManager.load();
 
-        // objectManager.exportAllToToml(new File("dumps/objects/toml/"));
-        // objectManager.exportAllToJson(new File("dumps/objects/json/"));
+        objectManager.exportAllToToml(new File("dumps/objects/toml/"));
+        objectManager.exportAllToJson(new File("dumps/objects/json/"));
 
         npcManager = new NpcManager(cache);
         npcManager.setVerbose(true);
         // npcManager.setVerboseDefinitions(true);
         npcManager.load();
 
-        // npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
-        // npcManager.exportAllToJson(new File("dumps/npcs/json/"));
+        npcManager.exportAllToToml(new File("dumps/npcs/toml/"));
+        npcManager.exportAllToJson(new File("dumps/npcs/json/"));
 
         itemManager = new ItemManager(cache);
         itemManager.setVerbose(true);
@@ -77,7 +77,7 @@ public class MegaDumper {
 
         // Dumps all models
         for (int i = 0; i < modelManager.getModels().length; i++) {
-            // modelManager.dumpModel(i, new File("dumps/models/"), i + "");
+            modelManager.dumpModel(i, new File("dumps/models/"), i + "");
         }
 
         // Dumps one object model
@@ -86,12 +86,12 @@ public class MegaDumper {
         // Dumps all object models
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
             System.out.println("Dumping models for object ID: " + def.getId() + " Name: " + def.getName());
-            // modelManager.dumpObjectModels(def, "dumps/objects/models/");
+            modelManager.dumpObjectModels(def, "dumps/objects/models/");
         }
 
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
             System.out.println("Dumping models for NPC ID: " + def.getId() + " Name: " + def.getName());
-            // modelManager.dumpNpcModels(def, "dumps/npcs/models/");
+            modelManager.dumpNpcModels(def, "dumps/npcs/models/");
         }
 
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
