@@ -3,7 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
-version = '0.6-BETA'
+version = '0.7-BETA'
 
 jar {
     manifest {
@@ -18,7 +18,7 @@ repositories {
 task run(type: JavaExec) {
     classpath sourceSets.test.runtimeClasspath
     mainClass = 'tech.lucidsoft.cache.dumper.MegaDumper'
-    args = ['./data/cache201/', '201']
+    args = ['./data/cache201/']
 }
 
 dependencies {
@@ -27,4 +27,5 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    implementation 'com.google.guava:guava:27.1-jre'
 }

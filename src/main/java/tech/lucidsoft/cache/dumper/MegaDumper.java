@@ -3,10 +3,7 @@ package tech.lucidsoft.cache.dumper;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
-import tech.lucidsoft.cache.definitions.managers.ItemManager;
-import tech.lucidsoft.cache.definitions.managers.ModelManager;
-import tech.lucidsoft.cache.definitions.managers.NpcManager;
-import tech.lucidsoft.cache.definitions.managers.ObjectManager;
+import tech.lucidsoft.cache.definitions.managers.*;
 import tech.lucidsoft.cache.filesystem.Cache;
 
 import java.io.File;
@@ -18,11 +15,12 @@ import java.io.File;
 public class MegaDumper {
 
     private static String cachePath = "./data/cache/";
-    private static int revision = 1;
 
     private NpcManager npcManager;
     private ObjectManager objectManager;
     private ItemManager itemManager;
+    private EnumManager enumManager;
+
     private ModelManager modelManager;
 
     private long startTime = -1L;
@@ -35,22 +33,17 @@ public class MegaDumper {
             cachePath = args[0];
         }
 
-        if (System.getProperty("revision") != null) {
-            revision = Integer.parseInt(System.getProperty("revision"));
-        } else if (args.length > 1) {
-            revision = Integer.parseInt(args[1]);
-        }
-
         new MegaDumper();
     }
 
     public MegaDumper() {
         startTime = System.currentTimeMillis();
-        Cache cache = Cache.openCache(cachePath, revision);
+        Cache cache = Cache.openCache(cachePath);
 
         loadObjectDefinitions(cache);
         loadNpcDefinitions(cache);
         loadItemDefinitions(cache);
+        loadEnumDefinitions(cache);
         loadModels(cache);
 
         objectManager.exportAllToToml(new File("dumps/objects/toml/"));
@@ -61,6 +54,9 @@ public class MegaDumper {
 
         itemManager.exportAllToToml(new File("dumps/items/toml/"));
         itemManager.exportAllToJson(new File("dumps/items/json/"));
+
+        enumManager.exportAllToToml(new File("dumps/enums/toml/"));
+        enumManager.exportAllToJson(new File("dumps/enums/json/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -105,6 +101,13 @@ public class MegaDumper {
         itemManager.setVerbose(true);
         // itemManager.setVerboseDefinitions(true);
         itemManager.load();
+    }
+
+    public void loadEnumDefinitions(Cache cache) {
+        enumManager = new EnumManager(cache);
+        enumManager.setVerbose(true);
+        // enumManager.setVerboseDefinitions(true);
+        enumManager.load();
     }
 
     public void loadModels(Cache cache) {

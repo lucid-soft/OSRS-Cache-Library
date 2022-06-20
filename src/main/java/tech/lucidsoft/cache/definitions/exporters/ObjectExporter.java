@@ -30,9 +30,7 @@ public class ObjectExporter {
         String out = "";
         out += "[[object]]" + newline();
         out += format("id", def.getId());
-        if(Cache.getCacheRevision() > 199) {
-            out += format("category", def.getCategory());
-        }
+        out += format("category", def.getCategory());
         out += format("name", def.getName());
         out += format("varbit", def.getVarbit());
         out += format("optionsinvisible", def.getOptionsInvisible());

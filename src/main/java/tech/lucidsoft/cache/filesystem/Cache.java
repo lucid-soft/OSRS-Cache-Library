@@ -18,28 +18,13 @@ public class Cache {
     private Index masterindex;
     private Archive[] archives;
     private int[] crcs;
-    private static int cacheRevision = -1; // Needs to be manually set
 
     private Cache(String path) {
-        this(path, -1);
-        System.out.println("You haven't specified a revision, some features might not work properly.");
-    }
-
-    private Cache(String path, int revision) {
         openFiles(path);
-        cacheRevision = revision;
     }
 
     public static void main(String args[]) {
         System.out.println("Invalid use. Use Cache#openCache(String directory)");
-    }
-
-    public static void setCacheRevision(int revision) {
-        cacheRevision = revision;
-    }
-
-    public static int getCacheRevision() {
-        return cacheRevision;
     }
 
     private final void openFiles(String path) {
@@ -108,18 +93,6 @@ public class Cache {
         return new Cache(path);
     }
 
-    /**
-     * Opens cache at given path.
-     * @param path
-     * Folder where cache is located.\
-     * @param revision
-     * Target revision for cache (affects output of definitions)
-     * @return
-     * Opened cache or null if something failed.
-     */
-    public static Cache openCache(String path, int revision) {
-        return new Cache(path, revision);
-    }
 
     /**
      * Create's new cache on given path.

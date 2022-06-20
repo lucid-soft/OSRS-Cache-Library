@@ -25,17 +25,17 @@ public class ItemManager {
     }
 
     public void load() {
-        if(isVerbose()) {
+        if (isVerbose()) {
             System.out.println("Loading Item Definitions...");
         }
 
         ItemLoader loader = new ItemLoader();
-        for(File f : itemDefGroup.getFiles()) {
+        for (File f : itemDefGroup.getFiles()) {
             ItemDefinition def = loader.load(f.getID(), f.getData());
             definitions.put(f.getID(), def);
         }
 
-        if(isVerbose()) {
+        if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Item definitions.");
         }
     }

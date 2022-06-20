@@ -61,9 +61,7 @@ public class ItemExporter {
         out += format("primaryfemaleheadmodelid" , def.getPrimaryFemaleHeadModelId());
         out += format("secondarymaleheadmodelid" , def.getSecondaryMaleHeadModelId());
         out += format("secondaryfemaleheadmodelid" , def.getSecondaryFemaleHeadModelId());
-        if (Cache.getCacheRevision() > 199) {
-            out += format("category" , def.getCategory());
-        }
+        out += format("category" , def.getCategory());
         out += format("modelyaw", def.getModelYaw());
         out += format("notedid" , def.getNotedId());
         out += format("notedtemplate" , def.getNotedTemplate());
@@ -99,11 +97,11 @@ public class ItemExporter {
             }
         }
         if (member instanceof Integer) {
-            out += memberName + "=" + (int) member + newline();
+            out += memberName + " = " + (int) member + newline();
         } else if (member instanceof String) {
-            out += memberName + "=" + "\"" + member + "\"" + newline();
+            out += memberName + " = " + "\"" + member + "\"" + newline();
         } else if (member instanceof int[]) {
-            out += memberName + "=[";
+            out += memberName + " = [ ";
             if (member != null) {
                 int[] casted = (int[]) member;
                 for (int i = 0; i < casted.length; i++) {
@@ -113,9 +111,9 @@ public class ItemExporter {
                     }
                 }
             }
-            out += "]" + newline();
+            out += " ]" + newline();
         } else if (member instanceof short[]) {
-            out += memberName + "=[";
+            out += memberName + " = [ ";
             if (member != null) {
                 short[] casted = (short[]) member;
                 for (int i = 0; i < casted.length; i++) {
