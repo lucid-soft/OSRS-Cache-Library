@@ -133,7 +133,7 @@ public class MegaDumper {
         // Dumps all object models
         System.out.println("Dumping Object Models...");
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
-            modelManager.dumpObjectModels(def, "dumps/objects/models/");
+            modelManager.dumpObjectModels(def, "dumps/models/objects/");
         }
     }
 
@@ -141,7 +141,7 @@ public class MegaDumper {
         // Dumps all npc models
         System.out.println("Dumping NPC Models...");
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
-            modelManager.dumpNpcModels(def, "dumps/npcs/models/");
+            modelManager.dumpNpcModels(def, "dumps/models/npcs/");
         }
     }
 
@@ -149,7 +149,7 @@ public class MegaDumper {
         // Dumps all item models
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
-            modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");
+            modelManager.dumpItemModels(itemManager, def, "dumps/models/items/");
         }
     }
 }
