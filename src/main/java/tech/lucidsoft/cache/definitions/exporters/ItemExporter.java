@@ -124,7 +124,7 @@ public class ItemExporter {
             }
             out += "]" + newline();
         } else if (member instanceof String[]) {
-            out += memberName + "=[";
+            out += memberName + " = [ ";
             if (member != null) {
                 String[] casted = (String[]) member;
                 for (int i = 0; i < casted.length; i++) {
@@ -134,9 +134,9 @@ public class ItemExporter {
                     }
                 }
             }
-            out += "]" + newline();
+            out += " ]" + newline();
         } else if (member instanceof Boolean) {
-            out += memberName + "=" + ((boolean) member == true ? 1 : 0) + newline();
+            out += memberName + " = " + ((boolean) member == true ? 1 : 0) + newline();
         } else if (member instanceof Map) {
             HashMap<Integer, Object> parameters = (HashMap<Integer, Object>) member;
             out += newline();

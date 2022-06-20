@@ -21,6 +21,7 @@ public class MegaDumper {
     private ItemManager itemManager;
     private EnumManager enumManager;
     private UnderlayManager underlayManager;
+    private IdentikitManager identikitManager;
 
     private ModelManager modelManager;
 
@@ -46,23 +47,27 @@ public class MegaDumper {
         loadItemDefinitions(cache);
         loadEnumDefinitions(cache);
         loadUnderlayDefinitions(cache);
+        loadIdentikitDefinitions(cache);
 
         loadModels(cache);
 
-        objectManager.exportAllToToml(new File("dumps/toml/objects/"));
-        objectManager.exportAllToJson(new File("dumps/json/objects/"));
+        objectManager.exportAllToToml(new File("dumps/toml/object/"));
+        objectManager.exportAllToJson(new File("dumps/json/object/"));
 
         npcManager.exportAllToToml(new File("dumps/toml/npc/"));
         npcManager.exportAllToJson(new File("dumps/json/npc/"));
 
-        itemManager.exportAllToToml(new File("dumps/toml/items/"));
-        itemManager.exportAllToJson(new File("dumps/json/items/"));
+        itemManager.exportAllToToml(new File("dumps/toml/item/"));
+        itemManager.exportAllToJson(new File("dumps/json/item/"));
 
-        enumManager.exportAllToToml(new File("dumps/toml/enums/"));
-        enumManager.exportAllToJson(new File("dumps/json/enums/"));
+        enumManager.exportAllToToml(new File("dumps/toml/enum/"));
+        enumManager.exportAllToJson(new File("dumps/json/enum/"));
 
-        underlayManager.exportAllToToml(new File("dumps/toml/underlays/"));
-        underlayManager.exportAllToJson(new File("dumps/json/underlays/"));
+        underlayManager.exportAllToToml(new File("dumps/toml/underlay/"));
+        underlayManager.exportAllToJson(new File("dumps/json/underlay/"));
+
+        identikitManager.exportAllToToml(new File("dumps/toml/identikit/"));
+        identikitManager.exportAllToJson(new File("dumps/json/identikit/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -121,6 +126,13 @@ public class MegaDumper {
         underlayManager.setVerbose(true);
         // underlayManager.setVerboseDefinitions(true);
         underlayManager.load();
+    }
+
+    public void loadIdentikitDefinitions(Cache cache) {
+        identikitManager = new IdentikitManager(cache);
+        identikitManager.setVerbose(true);
+        // identikitManager.setVerboseDefinitions(true);
+        identikitManager.load();
     }
 
     public void loadModels(Cache cache) {

@@ -3,7 +3,7 @@ package tech.lucidsoft.cache;
 public enum GroupType
 {
     UNDERLAY(1), // Done
-    IDENTKIT(3),
+    IDENTIKIT(3), // Done
     OVERLAY(4),
     INV(5),
     OBJECT(6), // Done
