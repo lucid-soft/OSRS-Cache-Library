@@ -3,7 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
-version = '0.8-BETA'
+version = '0.8.1-BETA'
 
 jar {
     manifest {
