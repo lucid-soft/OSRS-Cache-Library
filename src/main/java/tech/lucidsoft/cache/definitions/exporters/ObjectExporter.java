@@ -32,9 +32,6 @@ public class ObjectExporter {
         out += format("id", def.getId());
         if(Cache.getCacheRevision() > 199) {
             out += format("category", def.getCategory());
-        } else {
-            System.out.println("Ignoring category due to Cache.cacheRevision being set to" + Cache.getCacheRevision() + ".");
-            System.out.println("Category was introduced in revision 199.");
         }
         out += format("name", def.getName());
         out += format("varbit", def.getVarbit());

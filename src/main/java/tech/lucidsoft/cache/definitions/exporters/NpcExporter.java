@@ -35,9 +35,6 @@ public class NpcExporter {
         out += format("name", def.getName());
         if (Cache.getCacheRevision() > 199) {
             out += format("category", def.getCategory());
-        } else {
-            System.out.println("Ignoring category due to Cache.cacheRevision being set to" + Cache.getCacheRevision() + ".");
-            System.out.println("Category was introduced in revision 199.");
         }
         out += format("options", def.getOptions());
         out += format("varp", def.getVarp());
