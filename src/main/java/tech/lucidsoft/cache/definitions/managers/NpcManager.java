@@ -36,7 +36,7 @@ public class NpcManager {
         }
 
         if (isVerbose()) {
-            System.out.println("Loaded " + definitions.size() + " NPC definitions.");
+            System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " NPC definitions.");
         }
     }
 

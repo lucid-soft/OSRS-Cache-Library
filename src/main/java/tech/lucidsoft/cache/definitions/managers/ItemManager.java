@@ -36,7 +36,7 @@ public class ItemManager {
         }
 
         if(isVerbose()) {
-            System.out.println("Loaded " + definitions.size() + " Item definitions.");
+            System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Item definitions.");
         }
     }
 

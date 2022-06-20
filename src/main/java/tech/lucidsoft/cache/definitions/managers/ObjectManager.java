@@ -36,7 +36,7 @@ public class ObjectManager {
         }
 
         if(isVerbose()) {
-            System.out.println("Loaded " + definitions.size() + " Object definitions.");
+            System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Object definitions.");
         }
     }
 

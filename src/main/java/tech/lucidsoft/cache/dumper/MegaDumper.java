@@ -25,6 +25,9 @@ public class MegaDumper {
     private ItemManager itemManager;
     private ModelManager modelManager;
 
+    private long startTime = -1L;
+
+
     public static void main(String[] args) {
         if (System.getProperty("cache") != null) {
             cachePath = System.getProperty("cache");
@@ -42,6 +45,7 @@ public class MegaDumper {
     }
 
     public MegaDumper() {
+        startTime = System.currentTimeMillis();
         Cache cache = Cache.openCache(cachePath, revision);
 
         objectManager = new ObjectManager(cache);
@@ -76,6 +80,7 @@ public class MegaDumper {
         // modelManager.dumpModel(1, new File("dumps/models/"), "1");
 
         // Dumps all models
+        System.out.println("Dumping all models to: " + "dumps/models/");
         for (int i = 0; i < modelManager.getModels().length; i++) {
             modelManager.dumpModel(i, new File("dumps/models/"), i + "");
         }
@@ -84,19 +89,24 @@ public class MegaDumper {
         // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
 
         // Dumps all object models
+        System.out.println("Dumping Object Models...");
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
-            System.out.println("Dumping models for object ID: " + def.getId() + " Name: " + def.getName());
             modelManager.dumpObjectModels(def, "dumps/objects/models/");
         }
 
+        // Dumps all npc models
+        System.out.println("Dumping NPC Models...");
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
-            System.out.println("Dumping models for NPC ID: " + def.getId() + " Name: " + def.getName());
             modelManager.dumpNpcModels(def, "dumps/npcs/models/");
         }
 
+        // Dumps all item models
+        System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
-            System.out.println("Dumping models for item ID: " + def.getId() + " Name: " + def.getName());
             modelManager.dumpItemModels(itemManager, def, "dumps/items/models/");
         }
+        long endTime = System.currentTimeMillis();
+        long diff = endTime - startTime;
+        System.out.println("Dumping complete! Took: " + String.format("%,.2f", diff / 1000) + " seconds");
     }
 }
