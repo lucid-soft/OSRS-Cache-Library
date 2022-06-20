@@ -31,7 +31,7 @@ public class ItemExporter {
         String out = "";
         out += "[[item]]" + newline();
         out += format("id", def.getId());
-        out += format("inventorymodelid", def.getInventoryModelId());
+        out += format("invmodel", def.getInventoryModelId());
         out += format("name", def.getName());
         out += format("zoom", def.getZoom());
         out += format("modelpitch", def.getModelPitch());
@@ -131,7 +131,7 @@ public class ItemExporter {
             if (member != null) {
                 String[] casted = (String[]) member;
                 for (int i = 0; i < casted.length; i++) {
-                    out += "\"" + casted[i] + "\"";
+                    out += "\"" + (casted[i].equals("null") ? "" : casted) + "\"";
                     if (i != casted.length - 1) {
                         out += ", ";
                     }
