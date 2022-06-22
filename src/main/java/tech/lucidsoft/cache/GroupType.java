@@ -11,7 +11,7 @@ public enum GroupType
     NPC(9), // Done
     ITEM(10), // Done
     PARAMS(11), // Done
-    SEQUENCE(12),
+    SEQUENCE(12), // Done
     SPOTANIM(13),
     VARBIT(14),
     VARCLIENTSTRING(15),

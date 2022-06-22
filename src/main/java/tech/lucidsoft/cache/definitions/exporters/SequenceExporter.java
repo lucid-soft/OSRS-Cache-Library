@@ -2,8 +2,9 @@ package tech.lucidsoft.cache.definitions.exporters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tech.lucidsoft.cache.definitions.IdentikitDefinition;
-import tech.lucidsoft.cache.definitions.managers.IdentikitManager;
+import tech.lucidsoft.cache.definitions.SequenceDefinition;
+import tech.lucidsoft.cache.definitions.managers.ParamManager;
+import tech.lucidsoft.cache.definitions.managers.SequenceManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,14 +12,14 @@ import java.io.IOException;
 
 import static tech.lucidsoft.cache.util.DefUtil.newline;
 
-public class IdentikitExporter {
+public class SequenceExporter {
 
-    private IdentikitDefinition def;
+    private SequenceDefinition def;
     private final Gson gson;
     private final String toml;
 
-    public IdentikitExporter(IdentikitDefinition identikitDefinition) {
-        this.def = identikitDefinition;
+    public SequenceExporter(SequenceDefinition sequenceDefinition) {
+        this.def = sequenceDefinition;
         GsonBuilder builder = new GsonBuilder()
                 .setPrettyPrinting();
         gson = builder.create();
@@ -27,18 +28,23 @@ public class IdentikitExporter {
 
     private String defAsToml() {
         String out = "";
-        out += "[[identikit]]" + newline();
+        out += "[[sequence]]" + newline();
         out += format("id", def.getId());
-        out += format("originalcolours", def.getOriginalColours());
-        out += format("replacementcolours", def.getReplacementColours());
-        out += format("originaltextures", def.getOriginalTextures());
-        out += format("replacementtextures", def.getReplacementTextures());
-        out += format("bodypartid", def.getBodyPartId());
-        out += format("models", def.getModels());
-        out += format("chatheadmodels", def.getChatheadModels());
-        out += format("nonselectable", def.isNonSelectable());
+        out += format("frameids", def.getFrameIds());
+        out += format("chatframeids", def.getChatFrameIds());
+        out += format("framesounds", def.getFrameSounds());
+        out += format("framestep", def.getFrameStep());
+        out += format("interleaves", def.getInterleaves());
+        out += format("stretches", def.isStretches());
+        out += format("forcedpriority", def.getForcedPriority());
+        out += format("lefthanditem", def.getLeftHandItem());
+        out += format("righthanditem", def.getRightHandItem());
+        out += format("maxloops", def.getMaxLoops());
+        out += format("precedenceanimating", def.getPrecedenceAnimating());
+        out += format("priority", def.getPriority());
+        out += format("replymode", def.getReplyMode());
 
-        if (IdentikitManager.isVerboseDefinitions()) {
+        if(SequenceManager.isVerboseDefinitions()) {
             System.out.println(out);
         }
 
@@ -48,13 +54,12 @@ public class IdentikitExporter {
     public String format(String memberName, Object member) {
         String out = "";
         if (member == null) {
-            if(memberName.equals("originalcolours") || memberName.equals("replacementcolours") ||
-                    memberName.equals("originaltextures") || memberName.equals("replacementtextures")) {
-                member = new short[0];
-            } else if(memberName.equals("models") || memberName.equals("chatheadModels")) {
+            if (memberName.equals("frameids") || memberName.equals("chatframeids") ||
+                    memberName.equals("framelengths") || memberName.equals("framesounds") || memberName.equals("interleaves")) {
                 member = new int[0];
             }
         }
+
         if (member instanceof Integer) {
             out += memberName + " = " + ((int)member + newline());
         } else if (member instanceof int[]) {
@@ -69,22 +74,9 @@ public class IdentikitExporter {
                 }
             }
             out += " ]" + newline();
-        } else if (member instanceof short[]) {
-            out += memberName + " = [ ";
-            if (member != null) {
-                short[] casted = (short[]) member;
-                for (int i = 0; i < casted.length; i++) {
-                    out += casted[i];
-                    if (i != casted.length - 1) {
-                        out += ", ";
-                    }
-                }
-            }
-            out += "]" + newline();
         } else if (member instanceof Boolean) {
             out += memberName + " = " + ((boolean) member == true ? 1 : 0) + newline();
         }
-
         return out;
     }
 

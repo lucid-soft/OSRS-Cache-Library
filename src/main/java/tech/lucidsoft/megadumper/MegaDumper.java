@@ -9,13 +9,15 @@ import tech.lucidsoft.cache.filesystem.Cache;
 import java.io.File;
 
 /**
- *  This is an example of the power of the cache library's dumping capabilities. This library is intended to be used as
- *  a dependency to create your own dumps instead of being an all-in-one dumping tool.
+ *  This is an example of the cache library's dumping capabilities. This library is intended to be used as
+ *  a dependency to create your own dumps instead of being an all-in-one dumping tool. However, this class will serve
+ *  as a full dump of the cache.
  */
 public class MegaDumper {
 
     private static String cachePath = "./data/cache/";
 
+    // Definitions
     private UnderlayManager underlayManager;
     private IdentikitManager identikitManager;
     private OverlayManager overlayManager;
@@ -25,6 +27,7 @@ public class MegaDumper {
     private NpcManager npcManager;
     private ItemManager itemManager;
     private ParamManager paramManager;
+    private SequenceManager sequenceManager;
 
     private ModelManager modelManager;
 
@@ -54,6 +57,7 @@ public class MegaDumper {
         loadNpcDefinitions(cache);
         loadItemDefinitions(cache);
         loadParamDefinitions(cache);
+        loadSequenceDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -87,10 +91,13 @@ public class MegaDumper {
         paramManager.exportAllToToml(new File("dumps/toml/param/"));
         paramManager.exportAllToJson(new File("dumps/json/param/"));
 
+        sequenceManager.exportAllToToml(new File("dumps/toml/seq/"));
+        sequenceManager.exportAllToJson(new File("dumps/json/seq/"));
+
         dumpingExamples();
-        dumpObjectModels();
-        dumpNpcModels();
-        dumpItemModels();
+        // dumpObjectModels();
+        // dumpNpcModels();
+        // dumpItemModels();
 
         long endTime = System.currentTimeMillis();
         long diff = endTime - startTime;
@@ -172,6 +179,13 @@ public class MegaDumper {
         paramManager.setVerbose(true);
         // paramManager.setVerboseDefinitions(true);
         paramManager.load();
+    }
+
+    public void loadSequenceDefinitions(Cache cache) {
+        sequenceManager = new SequenceManager(cache);
+        sequenceManager.setVerbose(true);
+        // sequenceManager.setVerboseDefinitions(true);
+        sequenceManager.load();
     }
 
     public void loadModels(Cache cache) {

@@ -49,7 +49,7 @@ public class EnumExporter {
         out += format("values", def.getValues());
 
         if (EnumManager.isVerboseDefinitions()) {
-            System.out.println(def);
+            System.out.println(out);
         }
 
         return out;

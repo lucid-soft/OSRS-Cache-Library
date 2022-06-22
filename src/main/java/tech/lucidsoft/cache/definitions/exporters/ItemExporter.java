@@ -80,7 +80,7 @@ public class ItemExporter {
         out += format("parameters", def.getParameters());
 
         if (ItemManager.isVerboseDefinitions()) {
-            System.out.println(def);
+            System.out.println(out);
         }
 
         return out;

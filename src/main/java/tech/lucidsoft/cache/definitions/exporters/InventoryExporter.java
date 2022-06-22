@@ -32,7 +32,7 @@ public class InventoryExporter {
         out += "size = " + def.getSize() + newline();
 
         if (InventoryManager.isVerboseDefinitions()) {
-            System.out.println(def);
+            System.out.println(out);
         }
 
         return out;

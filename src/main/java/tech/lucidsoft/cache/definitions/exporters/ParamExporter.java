@@ -33,9 +33,11 @@ public class ParamExporter {
         out += "defaultint = " + def.getDefaultInt() + newline();
         out += "defaultstring = " + def.getDefaultString() + newline();
         out += "autodisable = "+  (def.isAutoDisable() ? 1 : 0) + newline();
+
         if(ParamManager.isVerboseDefinitions()) {
-            System.out.println(def);
+            System.out.println(out);
         }
+
         return out;
     }
 
