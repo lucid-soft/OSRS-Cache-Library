@@ -4,7 +4,7 @@ public enum GroupType
 {
     UNDERLAY(1), // Done
     IDENTIKIT(3), // Done
-    OVERLAY(4),
+    OVERLAY(4), // Done
     INV(5),
     OBJECT(6), // Done
     ENUM(8), // Done

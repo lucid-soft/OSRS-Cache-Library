@@ -16,17 +16,15 @@ public class MegaDumper {
 
     private static String cachePath = "./data/cache/";
 
-    private NpcManager npcManager;
-    private ObjectManager objectManager;
-    private ItemManager itemManager;
-    private EnumManager enumManager;
     private UnderlayManager underlayManager;
     private IdentikitManager identikitManager;
+    private OverlayManager overlayManager;
+    private ObjectManager objectManager;
+    private EnumManager enumManager;
+    private NpcManager npcManager;
+    private ItemManager itemManager;
 
     private ModelManager modelManager;
-
-    private long startTime = -1L;
-
 
     public static void main(String[] args) {
         if (System.getProperty("cache") != null) {
@@ -39,35 +37,45 @@ public class MegaDumper {
     }
 
     public MegaDumper() {
-        startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         Cache cache = Cache.openCache(cachePath);
 
-        loadObjectDefinitions(cache);
-        loadNpcDefinitions(cache);
-        loadItemDefinitions(cache);
-        loadEnumDefinitions(cache);
+        long loadDefStart = System.currentTimeMillis();
+
+        System.out.println("Loading definitions...");
         loadUnderlayDefinitions(cache);
         loadIdentikitDefinitions(cache);
+        loadOverlayDefinitions(cache);
+        loadObjectDefinitions(cache);
+        loadEnumDefinitions(cache);
+        loadNpcDefinitions(cache);
+        loadItemDefinitions(cache);
+
+        long defTime = System.currentTimeMillis() - loadDefStart;
+        System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
 
         loadModels(cache);
-
-        objectManager.exportAllToToml(new File("dumps/toml/object/"));
-        objectManager.exportAllToJson(new File("dumps/json/object/"));
-
-        npcManager.exportAllToToml(new File("dumps/toml/npc/"));
-        npcManager.exportAllToJson(new File("dumps/json/npc/"));
-
-        itemManager.exportAllToToml(new File("dumps/toml/item/"));
-        itemManager.exportAllToJson(new File("dumps/json/item/"));
-
-        enumManager.exportAllToToml(new File("dumps/toml/enum/"));
-        enumManager.exportAllToJson(new File("dumps/json/enum/"));
 
         underlayManager.exportAllToToml(new File("dumps/toml/underlay/"));
         underlayManager.exportAllToJson(new File("dumps/json/underlay/"));
 
         identikitManager.exportAllToToml(new File("dumps/toml/identikit/"));
         identikitManager.exportAllToJson(new File("dumps/json/identikit/"));
+
+        overlayManager.exportAllToToml(new File("dumps/toml/overlay/"));
+        overlayManager.exportAllToJson(new File("dumps/json/overlay/"));
+
+        objectManager.exportAllToToml(new File("dumps/toml/object/"));
+        objectManager.exportAllToJson(new File("dumps/json/object/"));
+
+        enumManager.exportAllToToml(new File("dumps/toml/enum/"));
+        enumManager.exportAllToJson(new File("dumps/json/enum/"));
+
+        npcManager.exportAllToToml(new File("dumps/toml/npc/"));
+        npcManager.exportAllToJson(new File("dumps/json/npc/"));
+
+        itemManager.exportAllToToml(new File("dumps/toml/item/"));
+        itemManager.exportAllToJson(new File("dumps/json/item/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -84,13 +92,34 @@ public class MegaDumper {
         // modelManager.dumpModel(1, new File("dumps/models/"), "1");
 
         // Dumps all models
-        System.out.println("Dumping all models to: " + "dumps/models/");
+        System.out.println("Dumping all models to: " + "dumps/model/all/");
         for (int i = 0; i < modelManager.getModels().length; i++) {
-            modelManager.dumpModel(i, new File("dumps/models/"), i + "");
+            modelManager.dumpModel(i, new File("dumps/model/all/"), i + "");
         }
 
         // Dumps one object model
         // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
+    }
+
+    public void loadUnderlayDefinitions(Cache cache) {
+        underlayManager = new UnderlayManager(cache);
+        underlayManager.setVerbose(true);
+        // underlayManager.setVerboseDefinitions(true);
+        underlayManager.load();
+    }
+
+    public void loadIdentikitDefinitions(Cache cache) {
+        identikitManager = new IdentikitManager(cache);
+        identikitManager.setVerbose(true);
+        // identikitManager.setVerboseDefinitions(true);
+        identikitManager.load();
+    }
+
+    public void loadOverlayDefinitions(Cache cache) {
+        overlayManager = new OverlayManager(cache);
+        overlayManager.setVerbose(true);
+        // overlayManager.setVerboseDefinitions(true);
+        overlayManager.load();
     }
 
     public void loadObjectDefinitions(Cache cache) {
@@ -121,20 +150,6 @@ public class MegaDumper {
         enumManager.load();
     }
 
-    public void loadUnderlayDefinitions(Cache cache) {
-        underlayManager = new UnderlayManager(cache);
-        underlayManager.setVerbose(true);
-        // underlayManager.setVerboseDefinitions(true);
-        underlayManager.load();
-    }
-
-    public void loadIdentikitDefinitions(Cache cache) {
-        identikitManager = new IdentikitManager(cache);
-        identikitManager.setVerbose(true);
-        // identikitManager.setVerboseDefinitions(true);
-        identikitManager.load();
-    }
-
     public void loadModels(Cache cache) {
         modelManager = new ModelManager(cache);
         modelManager.setVerbose(true);
@@ -145,7 +160,7 @@ public class MegaDumper {
         // Dumps all object models
         System.out.println("Dumping Object Models...");
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
-            modelManager.dumpObjectModels(def, "dumps/models/objects/");
+            modelManager.dumpObjectModels(def, "dumps/model/object/");
         }
     }
 
@@ -153,7 +168,7 @@ public class MegaDumper {
         // Dumps all npc models
         System.out.println("Dumping NPC Models...");
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
-            modelManager.dumpNpcModels(def, "dumps/models/npcs/");
+            modelManager.dumpNpcModels(def, "dumps/model/npc/");
         }
     }
 
@@ -161,7 +176,7 @@ public class MegaDumper {
         // Dumps all item models
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
-            modelManager.dumpItemModels(itemManager, def, "dumps/models/items/");
+            modelManager.dumpItemModels(itemManager, def, "dumps/model/item/");
         }
     }
 }
