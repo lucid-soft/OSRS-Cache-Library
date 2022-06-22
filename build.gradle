@@ -3,7 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
-version = '0.8.5-BETA'
+version = '0.8.6-BETA'
 
 jar {
     manifest {
@@ -25,7 +25,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.ant/ant
     implementation 'org.apache.ant:ant:1.10.10'
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.9.0'
 
-    implementation 'com.google.guava:guava:27.1-jre'
+    implementation 'com.google.guava:guava:31.1-jre'
 }
