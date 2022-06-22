@@ -24,6 +24,7 @@ public class MegaDumper {
     private EnumManager enumManager;
     private NpcManager npcManager;
     private ItemManager itemManager;
+    private ParamManager paramManager;
 
     private ModelManager modelManager;
 
@@ -52,6 +53,7 @@ public class MegaDumper {
         loadEnumDefinitions(cache);
         loadNpcDefinitions(cache);
         loadItemDefinitions(cache);
+        loadParamDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -81,6 +83,9 @@ public class MegaDumper {
 
         itemManager.exportAllToToml(new File("dumps/toml/item/"));
         itemManager.exportAllToJson(new File("dumps/json/item/"));
+
+        paramManager.exportAllToToml(new File("dumps/toml/param/"));
+        paramManager.exportAllToJson(new File("dumps/json/param/"));
 
         dumpingExamples();
         dumpObjectModels();
@@ -141,6 +146,13 @@ public class MegaDumper {
         objectManager.load();
     }
 
+    public void loadEnumDefinitions(Cache cache) {
+        enumManager = new EnumManager(cache);
+        enumManager.setVerbose(true);
+        // enumManager.setVerboseDefinitions(true);
+        enumManager.load();
+    }
+
     public void loadNpcDefinitions(Cache cache) {
         npcManager = new NpcManager(cache);
         npcManager.setVerbose(true);
@@ -155,11 +167,11 @@ public class MegaDumper {
         itemManager.load();
     }
 
-    public void loadEnumDefinitions(Cache cache) {
-        enumManager = new EnumManager(cache);
-        enumManager.setVerbose(true);
-        // enumManager.setVerboseDefinitions(true);
-        enumManager.load();
+    public void loadParamDefinitions(Cache cache) {
+        paramManager = new ParamManager(cache);
+        paramManager.setVerbose(true);
+        // paramManager.setVerboseDefinitions(true);
+        paramManager.load();
     }
 
     public void loadModels(Cache cache) {

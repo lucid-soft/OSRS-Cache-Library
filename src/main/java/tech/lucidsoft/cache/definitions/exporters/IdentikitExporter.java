@@ -25,7 +25,7 @@ public class IdentikitExporter {
         toml = defAsToml();
     }
 
-    public String defAsToml() {
+    private String defAsToml() {
         String out = "";
         out += "[[identikit]]" + newline();
         out += format("id", def.getId());

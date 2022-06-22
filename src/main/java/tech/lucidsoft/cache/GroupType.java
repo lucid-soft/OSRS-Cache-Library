@@ -10,7 +10,7 @@ public enum GroupType
     ENUM(8), // Done
     NPC(9), // Done
     ITEM(10), // Done
-    PARAMS(11),
+    PARAMS(11), // Done
     SEQUENCE(12),
     SPOTANIM(13),
     VARBIT(14),
