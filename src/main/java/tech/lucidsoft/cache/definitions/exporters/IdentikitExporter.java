@@ -3,6 +3,7 @@ package tech.lucidsoft.cache.definitions.exporters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tech.lucidsoft.cache.definitions.IdentikitDefinition;
+import tech.lucidsoft.cache.definitions.managers.IdentikitManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,6 +37,11 @@ public class IdentikitExporter {
         out += format("models", def.getModels());
         out += format("chatheadmodels", def.getChatheadModels());
         out += format("nonselectable", def.isNonSelectable());
+
+        if (IdentikitManager.isVerboseDefinitions()) {
+            System.out.println(def);
+        }
+
         return out;
     }
 

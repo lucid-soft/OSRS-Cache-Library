@@ -3,6 +3,7 @@ package tech.lucidsoft.cache.definitions.exporters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tech.lucidsoft.cache.definitions.OverlayDefinition;
+import tech.lucidsoft.cache.definitions.managers.OverlayManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +25,7 @@ public class OverlayExporter {
         toml = defAsToml();
     }
 
-    public String defAsToml() {
+    private String defAsToml() {
         String out = "";
         out += "[[overlay]]" + newline();
         out += format("id", def.getId());
@@ -32,6 +33,11 @@ public class OverlayExporter {
         out += format("texture", def.getTexture());
         out += format("hideunderlay", def.isHideUnderlay());
         out += format("secondarycolour", def.getSecondaryColour());
+
+        if (OverlayManager.isVerboseDefinitions()) {
+            System.out.println(out);
+        }
+
         return out;
     }
 

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tech.lucidsoft.cache.definitions.EnumDefinition;
+import tech.lucidsoft.cache.definitions.managers.EnumManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,6 +47,11 @@ public class EnumExporter {
         out += format("keytype", def.getKeyType());
         out += format("valuetype", def.getValueType());
         out += format("values", def.getValues());
+
+        if (EnumManager.isVerboseDefinitions()) {
+            System.out.println(def);
+        }
+
         return out;
     }
 

@@ -3,6 +3,7 @@ package tech.lucidsoft.cache.definitions.exporters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
+import tech.lucidsoft.cache.definitions.managers.ItemManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -77,6 +78,10 @@ public class ItemExporter {
         out += format("placeholderid" , def.getPlaceholderId());
         out += format("placeholdertemplate" , def.getPlaceholderTemplate());
         out += format("parameters", def.getParameters());
+
+        if (ItemManager.isVerboseDefinitions()) {
+            System.out.println(def);
+        }
 
         return out;
     }

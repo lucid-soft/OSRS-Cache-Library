@@ -3,7 +3,6 @@ package tech.lucidsoft.cache.definitions.exporters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tech.lucidsoft.cache.definitions.managers.ObjectManager;
-import tech.lucidsoft.cache.filesystem.Cache;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
 
 import java.io.*;
@@ -77,7 +76,7 @@ public class ObjectExporter {
         out += format("randomizedanimstart", def.isRandomizedAnimStart());
         out += format("parameters", def.getParameters());
 
-        if(ObjectManager.isVerboseDefinitions()) {
+        if (ObjectManager.isVerboseDefinitions()) {
             System.out.println(out);
         }
 

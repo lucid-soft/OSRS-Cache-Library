@@ -1,4 +1,4 @@
-package tech.lucidsoft.cache.dumper;
+package tech.lucidsoft.megadumper;
 
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
@@ -19,6 +19,7 @@ public class MegaDumper {
     private UnderlayManager underlayManager;
     private IdentikitManager identikitManager;
     private OverlayManager overlayManager;
+    private InventoryManager inventoryManager;
     private ObjectManager objectManager;
     private EnumManager enumManager;
     private NpcManager npcManager;
@@ -46,6 +47,7 @@ public class MegaDumper {
         loadUnderlayDefinitions(cache);
         loadIdentikitDefinitions(cache);
         loadOverlayDefinitions(cache);
+        loadInventoryDefinitions(cache);
         loadObjectDefinitions(cache);
         loadEnumDefinitions(cache);
         loadNpcDefinitions(cache);
@@ -64,6 +66,9 @@ public class MegaDumper {
 
         overlayManager.exportAllToToml(new File("dumps/toml/overlay/"));
         overlayManager.exportAllToJson(new File("dumps/json/overlay/"));
+
+        inventoryManager.exportAllToToml(new File("dumps/toml/inv/"));
+        inventoryManager.exportAllToJson(new File("dumps/json/inv/"));
 
         objectManager.exportAllToToml(new File("dumps/toml/object/"));
         objectManager.exportAllToJson(new File("dumps/json/object/"));
@@ -120,6 +125,13 @@ public class MegaDumper {
         overlayManager.setVerbose(true);
         // overlayManager.setVerboseDefinitions(true);
         overlayManager.load();
+    }
+
+    public void loadInventoryDefinitions(Cache cache) {
+        inventoryManager = new InventoryManager(cache);
+        inventoryManager.setVerbose(true);
+        // inventoryManager.setVerboseDefinitions(true);
+        inventoryManager.load();
     }
 
     public void loadObjectDefinitions(Cache cache) {

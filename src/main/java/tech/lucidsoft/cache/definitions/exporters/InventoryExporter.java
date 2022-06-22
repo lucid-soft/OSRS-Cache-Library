@@ -2,8 +2,8 @@ package tech.lucidsoft.cache.definitions.exporters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tech.lucidsoft.cache.definitions.UnderlayDefinition;
-import tech.lucidsoft.cache.definitions.managers.UnderlayManager;
+import tech.lucidsoft.cache.definitions.InventoryDefinition;
+import tech.lucidsoft.cache.definitions.managers.InventoryManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,14 +11,14 @@ import java.io.IOException;
 
 import static tech.lucidsoft.cache.util.DefUtil.newline;
 
-public class UnderlayExporter {
+public class InventoryExporter {
 
-    private UnderlayDefinition def;
+    private final InventoryDefinition def;
     private final Gson gson;
     private final String toml;
 
-    public UnderlayExporter(UnderlayDefinition underlayDefinition) {
-        this.def = underlayDefinition;
+    public InventoryExporter(InventoryDefinition inventoryDefinition) {
+        this.def = inventoryDefinition;
         GsonBuilder builder = new GsonBuilder()
                 .setPrettyPrinting();
         gson = builder.create();
@@ -27,13 +27,14 @@ public class UnderlayExporter {
 
     private String defAsToml() {
         String out = "";
-        out += "[[underlay]]" + newline();
+        out += "[[inventory]]" + newline();
         out += "id = " + def.getId() + newline();
-        out += "rgb = " + def.getRgb() + newline();
+        out += "size = " + def.getSize() + newline();
 
-        if (UnderlayManager.isVerboseDefinitions()) {
-            System.out.println(out);
+        if (InventoryManager.isVerboseDefinitions()) {
+            System.out.println(def);
         }
+
         return out;
     }
 
@@ -58,5 +59,4 @@ public class UnderlayExporter {
             fw.write(gson.toJson(def));
         }
     }
-
 }

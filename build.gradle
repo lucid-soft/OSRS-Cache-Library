@@ -3,11 +3,11 @@ plugins {
 }
 
 apply plugin: 'java'
-version = '0.8.4-BETA'
+version = '0.8.5-BETA'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'tech.lucidsoft.cache.dumper.MegaDumper'
+        attributes 'Main-Class': 'tech.lucidsoft.megadumper.MegaDumper'
     }
 }
 
@@ -17,7 +17,7 @@ repositories {
 
 task run(type: JavaExec) {
     classpath sourceSets.test.runtimeClasspath
-    mainClass = 'tech.lucidsoft.cache.dumper.MegaDumper'
+    mainClass = 'tech.lucidsoft.megadumper.MegaDumper'
     args = ['./data/cache201/']
 }
 
