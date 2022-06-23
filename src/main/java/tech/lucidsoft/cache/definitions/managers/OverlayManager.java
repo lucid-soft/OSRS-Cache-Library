@@ -17,7 +17,6 @@ public class OverlayManager {
     private final Group overlayDefGroup;
     private static final Map<Integer, OverlayDefinition> definitions = new HashMap<>();
     private static boolean verbose = false;
-    private static boolean verboseDefinitions = false;
 
     public OverlayManager(Cache cache) {
         this.overlayDefGroup = cache.getArchive(ArchiveType.CONFIGS).findGroupByID(GroupType.OVERLAY);
@@ -36,33 +35,6 @@ public class OverlayManager {
 
         if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Overlay definitions.");
-        }
-    }
-
-    public void exportToToml(int id, java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Overlay TOML to: " + directory.getPath());
-        }
-        exportToToml(getOverlayDef(id), directory);
-    }
-
-    public void exportToToml(OverlayDefinition def, java.io.File directory) {
-        directory.mkdirs();
-
-        OverlayExporter exporter = new OverlayExporter(def);
-        try {
-            exporter.exportToToml(directory, + def.getId() + ".toml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportAllToToml(java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Overlay TOMLs to: " + directory.getPath());
-        }
-        for (OverlayDefinition def : definitions.values()) {
-            exportToToml(def, directory);
         }
     }
 
@@ -108,17 +80,5 @@ public class OverlayManager {
 
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    /**
-     *
-     * @param verboseDefinitions Will print the definition to console if set to true
-     */
-    public void setVerboseDefinitions(boolean verboseDefinitions) {
-        OverlayManager.verboseDefinitions = verboseDefinitions;
-    }
-
-    public static boolean isVerboseDefinitions() {
-        return verboseDefinitions;
     }
 }

@@ -1,5 +1,6 @@
 package tech.lucidsoft.megadumper;
 
+import org.checkerframework.checker.units.qual.C;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
@@ -28,6 +29,7 @@ public class MegaDumper {
     private ItemManager itemManager;
     private ParamManager paramManager;
     private SequenceManager sequenceManager;
+    private SpotanimManager spotanimManager;
 
     private ModelManager modelManager;
 
@@ -58,41 +60,26 @@ public class MegaDumper {
         loadItemDefinitions(cache);
         loadParamDefinitions(cache);
         loadSequenceDefinitions(cache);
+        loadSpotanimDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
 
+        System.out.println("Loading models...");
         loadModels(cache);
+        System.out.println("Model loading complete. Loaded " + modelManager.getModels().length + " models.");
 
-        underlayManager.exportAllToToml(new File("dumps/toml/underlay/"));
         underlayManager.exportAllToJson(new File("dumps/json/underlay/"));
-
-        identikitManager.exportAllToToml(new File("dumps/toml/identikit/"));
         identikitManager.exportAllToJson(new File("dumps/json/identikit/"));
-
-        overlayManager.exportAllToToml(new File("dumps/toml/overlay/"));
         overlayManager.exportAllToJson(new File("dumps/json/overlay/"));
-
-        inventoryManager.exportAllToToml(new File("dumps/toml/inv/"));
         inventoryManager.exportAllToJson(new File("dumps/json/inv/"));
-
-        objectManager.exportAllToToml(new File("dumps/toml/object/"));
         objectManager.exportAllToJson(new File("dumps/json/object/"));
-
-        enumManager.exportAllToToml(new File("dumps/toml/enum/"));
         enumManager.exportAllToJson(new File("dumps/json/enum/"));
-
-        npcManager.exportAllToToml(new File("dumps/toml/npc/"));
         npcManager.exportAllToJson(new File("dumps/json/npc/"));
-
-        itemManager.exportAllToToml(new File("dumps/toml/item/"));
         itemManager.exportAllToJson(new File("dumps/json/item/"));
-
-        paramManager.exportAllToToml(new File("dumps/toml/param/"));
         paramManager.exportAllToJson(new File("dumps/json/param/"));
-
-        sequenceManager.exportAllToToml(new File("dumps/toml/seq/"));
         sequenceManager.exportAllToJson(new File("dumps/json/seq/"));
+        spotanimManager.exportAllToJson(new File("dumps/json/spotanim/"));
 
         dumpingExamples();
         // dumpObjectModels();
@@ -115,77 +102,73 @@ public class MegaDumper {
         }
 
         // Dumps one object model
-        // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/");
+        // modelManager.dumpObjectModels(objectManager.getObjectDef(1), "dumps/objects/object1/");
     }
 
     public void loadUnderlayDefinitions(Cache cache) {
         underlayManager = new UnderlayManager(cache);
         underlayManager.setVerbose(true);
-        // underlayManager.setVerboseDefinitions(true);
         underlayManager.load();
     }
 
     public void loadIdentikitDefinitions(Cache cache) {
         identikitManager = new IdentikitManager(cache);
         identikitManager.setVerbose(true);
-        // identikitManager.setVerboseDefinitions(true);
         identikitManager.load();
     }
 
     public void loadOverlayDefinitions(Cache cache) {
         overlayManager = new OverlayManager(cache);
         overlayManager.setVerbose(true);
-        // overlayManager.setVerboseDefinitions(true);
         overlayManager.load();
     }
 
     public void loadInventoryDefinitions(Cache cache) {
         inventoryManager = new InventoryManager(cache);
         inventoryManager.setVerbose(true);
-        // inventoryManager.setVerboseDefinitions(true);
         inventoryManager.load();
     }
 
     public void loadObjectDefinitions(Cache cache) {
         objectManager = new ObjectManager(cache);
         objectManager.setVerbose(true);
-        // objectManager.setVerboseDefinitions(true);
         objectManager.load();
     }
 
     public void loadEnumDefinitions(Cache cache) {
         enumManager = new EnumManager(cache);
         enumManager.setVerbose(true);
-        // enumManager.setVerboseDefinitions(true);
         enumManager.load();
     }
 
     public void loadNpcDefinitions(Cache cache) {
         npcManager = new NpcManager(cache);
         npcManager.setVerbose(true);
-        // npcManager.setVerboseDefinitions(true);
         npcManager.load();
     }
 
     public void loadItemDefinitions(Cache cache) {
         itemManager = new ItemManager(cache);
         itemManager.setVerbose(true);
-        // itemManager.setVerboseDefinitions(true);
         itemManager.load();
     }
 
     public void loadParamDefinitions(Cache cache) {
         paramManager = new ParamManager(cache);
         paramManager.setVerbose(true);
-        // paramManager.setVerboseDefinitions(true);
         paramManager.load();
     }
 
     public void loadSequenceDefinitions(Cache cache) {
         sequenceManager = new SequenceManager(cache);
         sequenceManager.setVerbose(true);
-        // sequenceManager.setVerboseDefinitions(true);
         sequenceManager.load();
+    }
+
+    public void loadSpotanimDefinitions(Cache cache) {
+        spotanimManager = new SpotanimManager(cache);
+        spotanimManager.setVerbose(true);
+        spotanimManager.load();
     }
 
     public void loadModels(Cache cache) {

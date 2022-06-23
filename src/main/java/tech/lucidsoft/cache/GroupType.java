@@ -12,7 +12,7 @@ public enum GroupType
     ITEM(10), // Done
     PARAMS(11), // Done
     SEQUENCE(12), // Done
-    SPOTANIM(13),
+    SPOTANIM(13), // Done
     VARBIT(14),
     VARCLIENTSTRING(15),
     VARPLAYER(16),

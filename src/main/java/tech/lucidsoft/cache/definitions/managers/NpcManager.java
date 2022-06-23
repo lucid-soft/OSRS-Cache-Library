@@ -18,7 +18,6 @@ public class NpcManager {
     private final Group npcDefGroup;
     private final Map<Integer, NpcDefinition> definitions = new HashMap<>();
     private static boolean verbose = false;
-    private static boolean verboseDefinitions = false;
 
     public NpcManager(Cache cache) {
         this.npcDefGroup = cache.getArchive(ArchiveType.CONFIGS).findGroupByID(GroupType.NPC);
@@ -37,34 +36,6 @@ public class NpcManager {
 
         if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " NPC definitions.");
-        }
-    }
-
-    public void exportToToml(int id, java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting NPC TOML to: " + directory.getPath());
-        }
-        exportToToml(getNpcDef(id), directory);
-    }
-
-    public void exportToToml(NpcDefinition def, java.io.File directory) {
-        directory.mkdirs();
-
-        NpcExporter exporter = new NpcExporter(def);
-        String cleansedName = DefUtil.cleanseName(def.getName());
-        try {
-            exporter.exportToToml(directory, + def.getId() + "_" + cleansedName + ".toml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportAllToToml(java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting NPC TOMLs to: " + directory.getPath());
-        }
-        for (NpcDefinition def : definitions.values()) {
-            exportToToml(def, directory);
         }
     }
 
@@ -110,17 +81,5 @@ public class NpcManager {
 
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    /**
-     *
-     * @param verboseDefinitions Will print the definition to console if set to true
-     */
-    public void setVerboseDefinitions(boolean verboseDefinitions) {
-        NpcManager.verboseDefinitions = verboseDefinitions;
-    }
-
-    public static boolean isVerboseDefinitions() {
-        return verboseDefinitions;
     }
 }

@@ -17,7 +17,6 @@ public class SequenceManager {
     private final Group sequenceDefGroup;
     private static final Map<Integer, SequenceDefinition> definitions = new HashMap<>();
     private static boolean verbose = false;
-    private static boolean verboseDefinitions = false;
 
     public SequenceManager(Cache cache) {
         this.sequenceDefGroup = cache.getArchive(ArchiveType.CONFIGS).findGroupByID(GroupType.SEQUENCE);
@@ -36,33 +35,6 @@ public class SequenceManager {
 
         if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Sequence definitions.");
-        }
-    }
-
-    public void exportToToml(int id, java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Sequence TOML to: " + directory.getPath());
-        }
-        exportToToml(getSequenceDef(id), directory);
-    }
-
-    public void exportToToml(SequenceDefinition def, java.io.File directory) {
-        directory.mkdirs();
-
-        SequenceExporter exporter = new SequenceExporter(def);
-        try {
-            exporter.exportToToml(directory, + def.getId() + ".toml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportAllToToml(java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Sequence TOMLs to: " + directory.getPath());
-        }
-        for (SequenceDefinition def : definitions.values()) {
-            exportToToml(def, directory);
         }
     }
 
@@ -107,17 +79,5 @@ public class SequenceManager {
 
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    /**
-     *
-     * @param verboseDefinitions Will print the definition to console if set to true
-     */
-    public void setVerboseDefinitions(boolean verboseDefinitions) {
-        SequenceManager.verboseDefinitions = verboseDefinitions;
-    }
-
-    public static boolean isVerboseDefinitions() {
-        return verboseDefinitions;
     }
 }

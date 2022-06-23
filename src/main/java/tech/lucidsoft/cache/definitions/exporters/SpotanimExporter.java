@@ -2,19 +2,19 @@ package tech.lucidsoft.cache.definitions.exporters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tech.lucidsoft.cache.definitions.SequenceDefinition;
+import tech.lucidsoft.cache.definitions.SpotanimDefinition;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SequenceExporter {
+public class SpotanimExporter {
 
-    private SequenceDefinition def;
+    private SpotanimDefinition def;
     private final Gson gson;
 
-    public SequenceExporter(SequenceDefinition sequenceDefinition) {
-        this.def = sequenceDefinition;
+    public SpotanimExporter(SpotanimDefinition spotanimDefinition) {
+        this.def = spotanimDefinition;
         GsonBuilder builder = new GsonBuilder()
                 .setPrettyPrinting();
         gson = builder.create();

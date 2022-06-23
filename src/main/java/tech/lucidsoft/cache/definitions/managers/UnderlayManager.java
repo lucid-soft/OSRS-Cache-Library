@@ -17,7 +17,6 @@ public class UnderlayManager {
     private final Group underlayDefGroup;
     private static final Map<Integer, UnderlayDefinition> definitions = new HashMap<>();
     private static boolean verbose = false;
-    private static boolean verboseDefinitions = false;
 
     public UnderlayManager(Cache cache) {
         this.underlayDefGroup = cache.getArchive(ArchiveType.CONFIGS).findGroupByID(GroupType.UNDERLAY);
@@ -36,33 +35,6 @@ public class UnderlayManager {
 
         if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Underlay definitions.");
-        }
-    }
-
-    public void exportToToml(int id, java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Underlay TOML to: " + directory.getPath());
-        }
-        exportToToml(getUnderlayDef(id), directory);
-    }
-
-    public void exportToToml(UnderlayDefinition def, java.io.File directory) {
-        directory.mkdirs();
-
-        UnderlayExporter exporter = new UnderlayExporter(def);
-        try {
-            exporter.exportToToml(directory, + def.getId() + ".toml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportAllToToml(java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Underlay TOMLs to: " + directory.getPath());
-        }
-        for (UnderlayDefinition def : definitions.values()) {
-            exportToToml(def, directory);
         }
     }
 
@@ -107,17 +79,5 @@ public class UnderlayManager {
 
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    /**
-     *
-     * @param verboseDefinitions Will print the definition to console if set to true
-     */
-    public void setVerboseDefinitions(boolean verboseDefinitions) {
-        UnderlayManager.verboseDefinitions = verboseDefinitions;
-    }
-
-    public static boolean isVerboseDefinitions() {
-        return verboseDefinitions;
     }
 }

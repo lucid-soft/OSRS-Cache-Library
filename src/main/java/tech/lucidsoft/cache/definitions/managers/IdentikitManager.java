@@ -2,13 +2,9 @@ package tech.lucidsoft.cache.definitions.managers;
 
 import tech.lucidsoft.cache.ArchiveType;
 import tech.lucidsoft.cache.GroupType;
-import tech.lucidsoft.cache.definitions.EnumDefinition;
 import tech.lucidsoft.cache.definitions.IdentikitDefinition;
-import tech.lucidsoft.cache.definitions.ItemDefinition;
-import tech.lucidsoft.cache.definitions.exporters.EnumExporter;
 import tech.lucidsoft.cache.definitions.exporters.IdentikitExporter;
 import tech.lucidsoft.cache.definitions.loaders.IdentikitLoader;
-import tech.lucidsoft.cache.definitions.loaders.ItemLoader;
 import tech.lucidsoft.cache.filesystem.Cache;
 import tech.lucidsoft.cache.filesystem.File;
 import tech.lucidsoft.cache.filesystem.Group;
@@ -21,7 +17,6 @@ public class IdentikitManager {
     private final Group identikitDefGroup;
     private static final Map<Integer, IdentikitDefinition> definitions = new HashMap<>();
     private static boolean verbose = false;
-    private static boolean verboseDefinitions = false;
 
     public IdentikitManager(Cache cache) {
         this.identikitDefGroup = cache.getArchive(ArchiveType.CONFIGS).findGroupByID(GroupType.IDENTIKIT);
@@ -40,33 +35,6 @@ public class IdentikitManager {
 
         if (isVerbose()) {
             System.out.println("Loaded " + String.format( "%,d", definitions.size()) + " Identikit definitions.");
-        }
-    }
-
-    public void exportToToml(int id, java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Identikit TOML to: " + directory.getPath());
-        }
-        exportToToml(getIdentikitDef(id), directory);
-    }
-
-    public void exportToToml(IdentikitDefinition def, java.io.File directory) {
-        directory.mkdirs();
-
-        IdentikitExporter exporter = new IdentikitExporter(def);
-        try {
-            exporter.exportToToml(directory, + def.getId() + ".toml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportAllToToml(java.io.File directory) {
-        if(isVerbose()) {
-            System.out.println("Exporting Identikit TOMLs to: " + directory.getPath());
-        }
-        for (IdentikitDefinition def : definitions.values()) {
-            exportToToml(def, directory);
         }
     }
 
@@ -111,17 +79,5 @@ public class IdentikitManager {
 
     public static boolean isVerbose() {
         return verbose;
-    }
-
-    /**
-     *
-     * @param verboseDefinitions Will print the definition to console if set to true
-     */
-    public void setVerboseDefinitions(boolean verboseDefinitions) {
-        IdentikitManager.verboseDefinitions = verboseDefinitions;
-    }
-
-    public static boolean isVerboseDefinitions() {
-        return verboseDefinitions;
     }
 }
