@@ -1,10 +1,8 @@
 package tech.lucidsoft.megadumper;
 
-import org.checkerframework.checker.units.qual.C;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
-import tech.lucidsoft.cache.definitions.VarbitDefinition;
 import tech.lucidsoft.cache.definitions.managers.*;
 import tech.lucidsoft.cache.filesystem.Cache;
 
