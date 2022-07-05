@@ -115,6 +115,10 @@ public class ObjectLoader {
                     def.getReplacementTextures()[count] = (short) buffer.readUnsignedShort();
                 }
                 return;
+            case 60:
+                int minimapFunction = buffer.readUnsignedShort();
+                // deprecated
+                return;
             case 61:
                 def.setCategory(buffer.readUnsignedShort());
                 return;

@@ -4,6 +4,7 @@ import org.checkerframework.checker.units.qual.C;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
+import tech.lucidsoft.cache.definitions.VarbitDefinition;
 import tech.lucidsoft.cache.definitions.managers.*;
 import tech.lucidsoft.cache.filesystem.Cache;
 
@@ -16,7 +17,7 @@ import java.io.File;
  */
 public class MegaDumper {
 
-    private static String cachePath = "./data/cache/";
+    private static String cachePath = "./data/cache1081/";
 
     // Definitions
     private UnderlayManager underlayManager;
@@ -30,6 +31,7 @@ public class MegaDumper {
     private ParamManager paramManager;
     private SequenceManager sequenceManager;
     private SpotanimManager spotanimManager;
+    private VarbitManager varbitManager;
 
     private ModelManager modelManager;
 
@@ -61,25 +63,27 @@ public class MegaDumper {
         loadParamDefinitions(cache);
         loadSequenceDefinitions(cache);
         loadSpotanimDefinitions(cache);
+        loadVarbitDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
 
-        System.out.println("Loading models...");
         loadModels(cache);
         System.out.println("Model loading complete. Loaded " + modelManager.getModels().length + " models.");
 
-        underlayManager.exportAllToJson(new File("dumps/json/underlay/"));
-        identikitManager.exportAllToJson(new File("dumps/json/identikit/"));
-        overlayManager.exportAllToJson(new File("dumps/json/overlay/"));
-        inventoryManager.exportAllToJson(new File("dumps/json/inv/"));
-        objectManager.exportAllToJson(new File("dumps/json/object/"));
-        enumManager.exportAllToJson(new File("dumps/json/enum/"));
-        npcManager.exportAllToJson(new File("dumps/json/npc/"));
-        itemManager.exportAllToJson(new File("dumps/json/item/"));
-        paramManager.exportAllToJson(new File("dumps/json/param/"));
-        sequenceManager.exportAllToJson(new File("dumps/json/seq/"));
-        spotanimManager.exportAllToJson(new File("dumps/json/spotanim/"));
+        String jsonPath = cachePath + "/dumps/json/";
+        underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
+        identikitManager.exportAllToJson(new File(jsonPath + "/identikit/"));
+        overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
+        inventoryManager.exportAllToJson(new File(jsonPath + "/inv/"));
+        objectManager.exportAllToJson(new File(jsonPath + "/object/"));
+        enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
+        npcManager.exportAllToJson(new File(jsonPath + "/npc/"));
+        itemManager.exportAllToJson(new File(jsonPath + "/item/"));
+        paramManager.exportAllToJson(new File(jsonPath + "/param/"));
+        sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
+        spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
+        varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
 
         dumpingExamples();
         // dumpObjectModels();
@@ -96,9 +100,9 @@ public class MegaDumper {
         // modelManager.dumpModel(1, new File("dumps/models/"), "1");
 
         // Dumps all models
-        System.out.println("Dumping all models to: " + "dumps/model/all/");
+        System.out.println("Dumping all models to: " + cachePath + "dumps/model/all/");
         for (int i = 0; i < modelManager.getModels().length; i++) {
-            modelManager.dumpModel(i, new File("dumps/model/all/"), i + "");
+            modelManager.dumpModel(i, new File(cachePath + "/dumps/model/all/"), i + "");
         }
 
         // Dumps one object model
@@ -171,6 +175,12 @@ public class MegaDumper {
         spotanimManager.load();
     }
 
+    public void loadVarbitDefinitions(Cache cache) {
+        varbitManager = new VarbitManager(cache);
+        varbitManager.setVerbose(true);
+        varbitManager.load();
+    }
+
     public void loadModels(Cache cache) {
         modelManager = new ModelManager(cache);
         modelManager.setVerbose(true);
@@ -181,7 +191,7 @@ public class MegaDumper {
         // Dumps all object models
         System.out.println("Dumping Object Models...");
         for (ObjectDefinition def : objectManager.getDefinitions().values()) {
-            modelManager.dumpObjectModels(def, "dumps/model/object/");
+            modelManager.dumpObjectModels(def, "/dumps/model/object/");
         }
     }
 
@@ -189,7 +199,7 @@ public class MegaDumper {
         // Dumps all npc models
         System.out.println("Dumping NPC Models...");
         for (NpcDefinition def : npcManager.getDefinitions().values()) {
-            modelManager.dumpNpcModels(def, "dumps/model/npc/");
+            modelManager.dumpNpcModels(def, "/dumps/model/npc/");
         }
     }
 
@@ -197,7 +207,7 @@ public class MegaDumper {
         // Dumps all item models
         System.out.println("Dumping Item Models...");
         for (ItemDefinition def : itemManager.getDefinitions().values()) {
-            modelManager.dumpItemModels(itemManager, def, "dumps/model/item/");
+            modelManager.dumpItemModels(itemManager, def, "/dumps/model/item/");
         }
     }
 }

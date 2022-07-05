@@ -121,7 +121,10 @@ public class ModelManager {
             if(!directory.exists()) {
                 directory.mkdirs();
             }
-
+            if(models[id] == null) {
+                System.err.println("Error, no model for id: " + id);
+                return;
+            }
             datFile = new java.io.File(directory, filename + ".dat");
             DataOutputStream dos = new DataOutputStream(new FileOutputStream(datFile));
             dos.write(models[id].getData());

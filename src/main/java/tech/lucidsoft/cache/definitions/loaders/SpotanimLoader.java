@@ -35,7 +35,7 @@ public class SpotanimLoader {
                 def.setRotation(buffer.readUnsignedShort());
                 return;
             case 7:
-                def.setAmbient(buffer.readUnsignedShort());
+                def.setAmbient(buffer.readUnsignedByte());
                 return;
             case 8:
                 def.setContrast(buffer.readUnsignedByte());
