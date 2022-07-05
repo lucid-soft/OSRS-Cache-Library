@@ -32,6 +32,7 @@ public class MegaDumper {
     private VarbitManager varbitManager;
     private VarclientManager varclientManager;
     private HitmarkManager hitmarkManager;
+    private HitbarManager hitbarManager;
 
     private ModelManager modelManager;
 
@@ -66,6 +67,7 @@ public class MegaDumper {
         loadVarbitDefinitions(cache);
         loadVarclientDefinitions(cache);
         loadHitmarkDefinitions(cache);
+        loadHitbarDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -88,6 +90,7 @@ public class MegaDumper {
         varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
         varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
         hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
+        hitbarManager.exportAllToJson(new File(jsonPath + "/hitbar/"));
 
         dumpingExamples();
         // dumpObjectModels();
@@ -195,6 +198,12 @@ public class MegaDumper {
         hitmarkManager = new HitmarkManager(cache);
         hitmarkManager.setVerbose(true);
         hitmarkManager.load();
+    }
+
+    public void loadHitbarDefinitions(Cache cache) {
+        hitbarManager = new HitbarManager(cache);
+        hitbarManager.setVerbose(true);
+        hitbarManager.load();
     }
 
     public void loadModels(Cache cache) {

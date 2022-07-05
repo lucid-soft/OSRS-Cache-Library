@@ -18,7 +18,7 @@ public enum GroupType
     VARPLAYER(16),
     VARCLIENT(19), // Done
     HITMARK(32), // Done
-    HITBAR(33),
+    HITBAR(33), // Done
     STRUCT(34),
     MAP_LABELS(35);
 
