@@ -31,6 +31,7 @@ public class MegaDumper {
     private SpotanimManager spotanimManager;
     private VarbitManager varbitManager;
     private VarclientManager varclientManager;
+    private HitmarkManager hitmarkManager;
 
     private ModelManager modelManager;
 
@@ -64,6 +65,7 @@ public class MegaDumper {
         loadSpotanimDefinitions(cache);
         loadVarbitDefinitions(cache);
         loadVarclientDefinitions(cache);
+        loadHitmarkDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -85,6 +87,7 @@ public class MegaDumper {
         spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
         varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
         varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
+        hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
 
         dumpingExamples();
         // dumpObjectModels();
@@ -186,6 +189,12 @@ public class MegaDumper {
         varclientManager = new VarclientManager(cache);
         varclientManager.setVerbose(true);
         varclientManager.load();
+    }
+
+    public void loadHitmarkDefinitions(Cache cache) {
+        hitmarkManager = new HitmarkManager(cache);
+        hitmarkManager.setVerbose(true);
+        hitmarkManager.load();
     }
 
     public void loadModels(Cache cache) {
