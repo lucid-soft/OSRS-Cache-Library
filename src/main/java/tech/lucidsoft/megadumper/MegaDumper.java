@@ -30,6 +30,7 @@ public class MegaDumper {
     private SequenceManager sequenceManager;
     private SpotanimManager spotanimManager;
     private VarbitManager varbitManager;
+    private VarclientManager varclientManager;
 
     private ModelManager modelManager;
 
@@ -62,6 +63,7 @@ public class MegaDumper {
         loadSequenceDefinitions(cache);
         loadSpotanimDefinitions(cache);
         loadVarbitDefinitions(cache);
+        loadVarclientDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -82,6 +84,7 @@ public class MegaDumper {
         sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
         spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
         varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
+        varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
 
         dumpingExamples();
         // dumpObjectModels();
@@ -177,6 +180,12 @@ public class MegaDumper {
         varbitManager = new VarbitManager(cache);
         varbitManager.setVerbose(true);
         varbitManager.load();
+    }
+
+    public void loadVarclientDefinitions(Cache cache) {
+        varclientManager = new VarclientManager(cache);
+        varclientManager.setVerbose(true);
+        varclientManager.load();
     }
 
     public void loadModels(Cache cache) {

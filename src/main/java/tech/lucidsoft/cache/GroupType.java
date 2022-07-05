@@ -16,7 +16,7 @@ public enum GroupType
     VARBIT(14), // Done
     VARCLIENTSTRING(15),
     VARPLAYER(16),
-    VARCLIENT(19),
+    VARCLIENT(19), // Done
     HITMARK(32),
     HITBAR(33),
     STRUCT(34),
