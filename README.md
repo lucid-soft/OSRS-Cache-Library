@@ -42,4 +42,4 @@ To dump models:
 
 ### Credits
     - Graham (mostly his cache library)
-    - Adam from RuneLite
+    - Adam from RuneLite (using loader/exporter/manger structure for dumping)
