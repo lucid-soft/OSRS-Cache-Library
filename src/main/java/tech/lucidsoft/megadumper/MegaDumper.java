@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class MegaDumper {
 
-    private static String cachePath = "./data/cache1081/";
+    private static String cachePath = "./data/cache/";
 
     // Definitions
     private UnderlayManager underlayManager;
