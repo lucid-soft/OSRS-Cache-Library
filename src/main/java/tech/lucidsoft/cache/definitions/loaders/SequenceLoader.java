@@ -3,6 +3,9 @@ package tech.lucidsoft.cache.definitions.loaders;
 import tech.lucidsoft.cache.definitions.SequenceDefinition;
 import tech.lucidsoft.cache.io.ByteBuffer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SequenceLoader {
 
     public SequenceDefinition load(int id, ByteBuffer buffer) {
@@ -94,6 +97,36 @@ public class SequenceLoader {
                     def.getFrameSounds()[i] = buffer.readMedium();
                 }
                 return;
+            // TODO: figure out what each new variable means
+            case 14:
+                int something = buffer.readInt();
+                break;
+            case 15:
+                int size = buffer.readUnsignedShort();
+                Map something2 = new HashMap();
+                for (int i = 0; i < size; i++) {
+                    int something3 = buffer.readUnsignedShort();
+                    int something4 = buffer.readMedium();
+                    something2.put(Integer.valueOf(something3), Integer.valueOf(something4));
+                }
+                break;
+            case 16:
+                int something5 = buffer.readUnsignedShort();
+                int something6 = buffer.readUnsignedShort();
+                break;
+            case 17:
+                boolean[] something7 = new boolean[256];
+
+                for (int i = 0; i < something7.length; i++) {
+                    something7[i] = false;
+                }
+
+                int something8 = buffer.readUnsignedByte();
+
+                for (int j = 0; j < something8; j++) {
+                    something7[buffer.readUnsignedByte()] = true;
+                }
+                break;
         }
     }
 }

@@ -26,11 +26,14 @@ public class SpriteManager {
     public void load() {
         for (int i = 0; i < spriteArchive.getGroups().length; i++) {
             SpriteLoader spriteLoader = new SpriteLoader();
-            SpriteDefinition[] definition = spriteLoader.load(i, spriteArchive.findGroupByID(i).getFiles()[0].getData());
+            if (spriteArchive.findGroupByID(i) != null) {
+                SpriteDefinition[] definition = spriteLoader.load(i, spriteArchive.findGroupByID(i).getFiles()[0].getData());
 
-            for (SpriteDefinition sprite : definition) {
-                sprites.put(sprite.getId(), sprite);
+                for (SpriteDefinition sprite : definition) {
+                    sprites.put(sprite.getId(), sprite);
+                }
             }
+
         }
 
         if (isVerbose()) {

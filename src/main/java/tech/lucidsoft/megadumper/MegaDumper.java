@@ -1,16 +1,12 @@
 package tech.lucidsoft.megadumper;
 
-import tech.lucidsoft.cache.ArchiveType;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
 import tech.lucidsoft.cache.definitions.managers.*;
-import tech.lucidsoft.cache.filesystem.Archive;
 import tech.lucidsoft.cache.filesystem.Cache;
-import tech.lucidsoft.cache.filesystem.Group;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  *  This is an example of the cache library's dumping capabilities. This library is intended to be used as
@@ -71,8 +67,8 @@ public class MegaDumper {
         loadSpotanimDefinitions(cache);
         loadVarbitDefinitions(cache);
         loadVarclientDefinitions(cache);
-        //loadHitmarkDefinitions(cache);
-        //loadHitbarDefinitions(cache);
+        loadHitmarkDefinitions(cache);
+        loadHitbarDefinitions(cache);
 
         long defTime = System.currentTimeMillis() - loadDefStart;
         System.out.println("Definition loading complete. Took " + String.format("%,.2f", (float) defTime / 1000) + " seconds");
@@ -82,24 +78,23 @@ public class MegaDumper {
         System.out.println("Model loading complete. Loaded " + modelManager.getModels().length + " models.");
 
         String jsonPath = cachePath + "/dumps/json/";
-        // underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
-        // identikitManager.exportAllToJson(new File(jsonPath + "/identikit/"));
-        // overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
-        // inventoryManager.exportAllToJson(new File(jsonPath + "/inv/"));
+        underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
+        identikitManager.exportAllToJson(new File(jsonPath + "/identikit/"));
+        overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
+        inventoryManager.exportAllToJson(new File(jsonPath + "/inv/"));
         objectManager.exportAllToJson(new File(jsonPath + "/object/"));
-        // enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
+        enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
         npcManager.exportAllToJson(new File(jsonPath + "/npc/"));
         itemManager.exportAllToJson(new File(jsonPath + "/item/"));
-        // paramManager.exportAllToJson(new File(jsonPath + "/param/"));
-        // sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
-        // spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
-        // varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
-        // varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
-        //hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
-        //hitbarManager.exportAllToJson(new File(jsonPath + "/hitbar/"));
+        paramManager.exportAllToJson(new File(jsonPath + "/param/"));
+        sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
+        spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
+        varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
+        varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
+        hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
+        hitbarManager.exportAllToJson(new File(jsonPath + "/hitbar/"));
 
         spriteManager.export(new File(cachePath + "/dumps/sprites/"));
-
 
         dumpingExamples();
         // dumpObjectModels();
