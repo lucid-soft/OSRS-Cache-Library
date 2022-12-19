@@ -53,6 +53,15 @@ public class ItemDefinition {
     private int contrast;
     private Map<Integer, Object> parameters;
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    private int wearPos1;
+    private int wearPos2;
+    private int wearPos3;
+    private int weight;
+
     public ItemDefinition() {
         setDefaults();
     }
@@ -488,4 +497,31 @@ public class ItemDefinition {
         this.parameters = parameters;
     }
 
+    public int getWearPos1() {
+        return wearPos1;
+    }
+
+    public void setWearPos1(int wearPos1) {
+        this.wearPos1 = wearPos1;
+    }
+
+    public int getWearPos2() {
+        return wearPos2;
+    }
+
+    public void setWearPos2(int wearPos2) {
+        this.wearPos2 = wearPos2;
+    }
+
+    public int getWearPos3() {
+        return wearPos3;
+    }
+
+    public void setWearPos3(int wearPos3) {
+        this.wearPos3 = wearPos3;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
 }

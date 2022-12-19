@@ -56,6 +56,12 @@ public class ItemLoader {
             case 12:
                 def.setPrice(buffer.readInt());
                 return;
+            case 13:
+                def.setWearPos1(buffer.readByte());
+                return;
+            case 14:
+                def.setWearPos2(buffer.readByte());
+                return;
             case 16:
                 def.setMembers(true);
                 return;
@@ -72,6 +78,9 @@ public class ItemLoader {
                 return;
             case 26:
                 def.setSecondaryFemaleModel(buffer.readUnsignedShort());
+                return;
+            case 27:
+                def.setWearPos3(buffer.readByte());
                 return;
             case 30:
             case 31:
@@ -115,6 +124,9 @@ public class ItemLoader {
                 return;
             case 65:
                 def.setGrandExchange(true);
+                return;
+            case 75:
+                def.setWeight(buffer.readShort());
                 return;
             case 78:
                 def.setTertiaryMaleModel(buffer.readUnsignedShort());

@@ -31,7 +31,8 @@ public class NpcDefinition {
     private int resizeX;
     private int resizeY;
     private int direction;
-    private int headIcon;
+    private int[] headIconArchiveIds;
+    private short[] headIconSpriteIndex;
     private int ambience;
     private int contrast;
     private short[] originalColours;
@@ -78,13 +79,28 @@ public class NpcDefinition {
         setVisible(false);
         setAmbience(0);
         setContrast(0);
-        setHeadIcon(-1);
         setDirection(32);
         setVarbit(-1);
         setVarp(-1);
         setClickable(true);
         setClippedMovement(true);
         setFamiliar(false);
+    }
+
+    public int[] getHeadIconArchiveIds() {
+        return headIconArchiveIds;
+    }
+
+    public void setHeadIconArchiveIds(int[] headIconArchiveIds) {
+        this.headIconArchiveIds = headIconArchiveIds;
+    }
+
+    public short[] getHeadIconSpriteIndex() {
+        return headIconSpriteIndex;
+    }
+
+    public void setHeadIconSpriteIndex(short[] headIconSpriteIndex) {
+        this.headIconSpriteIndex = headIconSpriteIndex;
     }
 
     public int getId() {
@@ -279,13 +295,6 @@ public class NpcDefinition {
         this.direction = direction;
     }
 
-    public int getHeadIcon() {
-        return headIcon;
-    }
-
-    public void setHeadIcon(int headIcon) {
-        this.headIcon = headIcon;
-    }
 
     public int getAmbience() {
         return ambience;

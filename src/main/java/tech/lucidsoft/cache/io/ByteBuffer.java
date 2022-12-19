@@ -93,6 +93,16 @@ public class ByteBuffer {
         }
     }
 
+    public int readUnsignedShortSmartMinusOne()
+    {
+        int value = this.buffer[this.position] & 0xff;
+        if (value < 128) {
+            return readUnsignedByte() - 1;
+        } else {
+            return readUnsignedShort() - 32769;
+        }
+    }
+
     public final int readUnsignedSmart() {
         int value = this.buffer[this.position] & 0xff;
         if (value < 128) {
@@ -213,6 +223,8 @@ public class ByteBuffer {
             return value == 32767 ? -1 : value;
         }
     }
+
+
 
     public int readHugeSmart() {
         int value = 0;

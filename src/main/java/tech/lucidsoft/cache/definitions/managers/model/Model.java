@@ -2,10 +2,10 @@ package tech.lucidsoft.cache.definitions.managers.model;
 
 public class Model {
 
-    public int id;
-    public byte[] data;
+    public final int id;
+    public final byte[] data;
 
-    public Model(int id, byte[] data) {
+    public Model(final int id, final byte[] data) {
         this.id = id;
         this.data = data;
     }

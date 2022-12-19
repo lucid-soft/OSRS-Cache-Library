@@ -5,7 +5,15 @@ import tech.lucidsoft.cache.io.ByteBuffer;
 
 public class NpcLoader {
 
+    public boolean using210Decoder = false;
+
+    public NpcLoader(boolean using210Decoder) {
+        this.using210Decoder = using210Decoder;
+    }
+
+
     public NpcDefinition load(int id, ByteBuffer buffer) {
+
         NpcDefinition def = new NpcDefinition(id);
         while (true) {
             int opcode = buffer.readUnsignedByte();
@@ -114,7 +122,37 @@ public class NpcLoader {
                 def.setContrast(buffer.readByte());
                 return;
             case 102:
-                def.setHeadIcon(buffer.readUnsignedShort());
+                if (!using210Decoder)
+                {
+                    def.setHeadIconArchiveIds(new int[]{-1});
+                    def.setHeadIconSpriteIndex(new short[]{(short) buffer.readUnsignedShort()});
+                }
+                else
+                {
+                    int bitfield = buffer.readUnsignedByte();
+                    int len = 0;
+                    for (int var5 = bitfield; var5 != 0; var5 >>= 1)
+                    {
+                        ++len;
+                    }
+
+                    def.setHeadIconArchiveIds(new int[len]);
+                    def.setHeadIconSpriteIndex(new short[len]);
+
+                    for (int i = 0; i < len; i++)
+                    {
+                        if ((bitfield & 1 << i) == 0)
+                        {
+                            def.getHeadIconArchiveIds()[i] = -1;
+                            def.getHeadIconSpriteIndex()[i] = -1;
+                        }
+                        else
+                        {
+                            def.getHeadIconArchiveIds()[i] = buffer.readBigSmart();
+                            def.getHeadIconSpriteIndex()[i] = (short) buffer.readUnsignedShortSmartMinusOne();
+                        }
+                    }
+                }
                 return;
             case 103:
                 def.setDirection(buffer.readUnsignedShort());
@@ -176,6 +214,9 @@ public class NpcLoader {
                 return;
             case 249:
                 def.setParameters(buffer.readParameters());
+                return;
+            default:
+                System.out.println("UNUSED OPCODE: " + opcode);
                 return;
         }
     }

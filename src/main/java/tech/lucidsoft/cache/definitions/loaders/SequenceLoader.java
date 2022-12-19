@@ -61,9 +61,15 @@ public class SequenceLoader {
                 return;
             case 6:
                 def.setLeftHandItem(buffer.readUnsignedShort());
+                if (def.getLeftHandItem() > 0) {
+                    def.setLeftHandItem(def.getLeftHandItem() - 512);
+                }
                 return;
             case 7:
                 def.setRightHandItem(buffer.readUnsignedShort());
+                if (def.getRightHandItem() > 0) {
+                    def.setRightHandItem(def.getRightHandItem() - 512);
+                }
                 return;
             case 8:
                 def.setMaxLoops(buffer.readUnsignedByte());
@@ -116,10 +122,6 @@ public class SequenceLoader {
                 break;
             case 17:
                 boolean[] something7 = new boolean[256];
-
-                for (int i = 0; i < something7.length; i++) {
-                    something7[i] = false;
-                }
 
                 int something8 = buffer.readUnsignedByte();
 
