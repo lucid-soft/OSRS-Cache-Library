@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ModelConverter {
 
-    private static String cachePath = "./data/cache210/";
-    private static String dumpPath = "./data/dumps/210/models/";
+    private static String cachePath = "./data/cache2102/";
+    private static String dumpPath = "./data/dumps/2102/models/";
 
     private Cache cache;
     private ModelManager modelManager;
 
-    private int[] modelsToConvert = {-1};
+    private int[] modelsToConvert = {47198, 47201};
 
     public static void main(String args[]) {
         new ModelConverter();

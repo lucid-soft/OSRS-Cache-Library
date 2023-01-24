@@ -21,7 +21,7 @@ public class XTEALoader {
             if (xtea == null) {
                 continue;
             }
-            DEFINITIONS.put(xtea.getRegion(), xtea);
+            DEFINITIONS.put(xtea.getMapsquare(), xtea);
         }
     }
 
@@ -37,6 +37,6 @@ public class XTEALoader {
         if (xtea == null) {
             return DEFAULT_KEYS;
         }
-        return xtea.getKeys();
+        return xtea.getKey();
     }
 }

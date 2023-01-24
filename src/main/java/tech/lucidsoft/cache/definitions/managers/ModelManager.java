@@ -122,7 +122,7 @@ public class ModelManager {
                 directory.mkdirs();
             }
             if(models[id] == null) {
-                System.err.println("Error, no model for id: " + id);
+                //System.err.println("Error, no model for id: " + id);
                 return;
             }
             datFile = new java.io.File(directory, filename + ".dat");

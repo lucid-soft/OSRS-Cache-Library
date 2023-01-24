@@ -1,6 +1,5 @@
 package tech.lucidsoft.sampletools;
 
-import tech.lucidsoft.cache.definitions.EnumDefinition;
 import tech.lucidsoft.cache.definitions.ItemDefinition;
 import tech.lucidsoft.cache.definitions.NpcDefinition;
 import tech.lucidsoft.cache.definitions.ObjectDefinition;
@@ -16,7 +15,7 @@ import java.io.File;
  */
 public class MegaDumper {
 
-    private static String cachePath = "./data/cache210/";
+    private static String cachePath = "./data/cache202/";
 
     // Definitions
     private UnderlayManager underlayManager;
@@ -97,7 +96,7 @@ public class MegaDumper {
 
         spriteManager.export(new File(cachePath + "/dumps/sprites/"));
 
-        // dumpingExamples();
+         dumpingExamples();
         // dumpObjectModels();
         // dumpNpcModels();
         // dumpItemModels();
@@ -155,25 +154,6 @@ public class MegaDumper {
         enumManager = new EnumManager(cache);
         enumManager.setVerbose(true);
         enumManager.load();
-
-        boolean found = false;
-        for (EnumDefinition e : enumManager.getDefinitions().values()) {
-            if(e.getValueType() == 'O' && !found) {
-                System.out.println("Enum: " + e.getId());
-                System.out.println();
-                for (Object s : e.getValues().values()) {
-                    int s2 = (int) s;
-                    System.out.println(s2 + "");
-                    if (s2 == 11230) {
-                        System.out.println("Enum " + e.getId() + " is it!!");
-                        found = true;
-                    }
-
-                }
-                System.out.println();
-                System.out.println();
-            }
-        }
     }
 
     public void loadNpcDefinitions(Cache cache) {

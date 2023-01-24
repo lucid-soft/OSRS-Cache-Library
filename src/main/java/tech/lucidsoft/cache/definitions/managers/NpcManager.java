@@ -27,7 +27,6 @@ public class NpcManager {
         if (isVerbose()) {
             System.out.println("Loading NPC Definitions...");
         }
-        System.out.println("Version: " + npcDefGroup.getVersion());
         NpcLoader loader = new NpcLoader(npcDefGroup.getVersion() >= 1493);
         for (File f : npcDefGroup.getFiles()) {
             NpcDefinition def = loader.load(f.getID(), f.getData());

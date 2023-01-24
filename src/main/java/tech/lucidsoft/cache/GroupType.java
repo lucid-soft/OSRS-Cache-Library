@@ -1,7 +1,6 @@
 package tech.lucidsoft.cache;
 
-public enum GroupType
-{
+public enum GroupType {
     UNDERLAY(1), // Done
     IDENTIKIT(3), // Done
     OVERLAY(4), // Done

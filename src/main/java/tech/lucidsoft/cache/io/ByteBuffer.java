@@ -1,5 +1,8 @@
 package tech.lucidsoft.cache.io;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -475,6 +478,7 @@ public class ByteBuffer {
                 buffer[bufferOffset + cc] = (byte) c;
                 continue;
             }
+
 
             switch (c) {
                 case '\u20ac':

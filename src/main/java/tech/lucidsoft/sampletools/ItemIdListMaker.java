@@ -20,7 +20,7 @@ public class ItemIdListMaker {
     private ItemManager itemManager;
 
     public static void main(String[] args) {
-        new ItemIdListMaker(DefUtil.LIST_MAKER_ZENYTE_ARGS);
+        new ItemIdListMaker(DefUtil.LIST_MAKER_LATEST_ARGS);
     }
 
     private ItemIdListMaker(String[] args) {

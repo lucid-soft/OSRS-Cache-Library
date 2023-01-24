@@ -8,8 +8,11 @@ import java.util.List;
 
 public class DefUtil {
 
+    public static final String LIST_MAKER_LATEST_ARGS[] = new String[] {"./data/cache2102/", "./data/dumps/2102/ids/"};
     public static final String LIST_MAKER_ZENYTE_ARGS[] = new String[] {"./data/zencache/", "./data/dumps/zen/ids/"};
     public static final String MAP_EXTRACTOR_ZENYTE_ARGS[] = new String[] {"./data/zencache/", "./data/dumps/zen/maps/"};
+
+    public static final String MAP_EXTRACTOR_210_ARGS[] = new String[] {"./data/cache2102/", "./data/dumps/cache2102/maps/"};
 
     /**
      *

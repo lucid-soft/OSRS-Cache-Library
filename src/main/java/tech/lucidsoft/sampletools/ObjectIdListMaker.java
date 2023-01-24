@@ -89,9 +89,21 @@ public class ObjectIdListMaker {
         put(-1, "NULL");
 
         //Custom replacements to make development easier
+        put(11700, "VENOM_CLOUD");
+
         put(20790, "SOS_ENTRANCE");
 
         put(26364, "SARADOMIN_ALTAR");
+        put(26371, "ROPE_26371");
+        put(26375, "ROPE_26375");
+        put(26561, "ROPE_26561");
+        put(26562, "ROPE_26562");
+
+        put(31669, "CLOYSTER_BELL");
+        put(31681, "GG_ENTRANCE");
+        put(31686, "ENERGY_SPHERE_31686");
+        put(31687, "ENERGY_SPHERE_31687");
+        put(31688, "ENERGY_SPHERE_31688");
 
         put(32534, "BRYOPHYTAS_ENTRANCE");
         put(32535, "BRYOPHYTAS_EXIT");

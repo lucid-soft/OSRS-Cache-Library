@@ -17,10 +17,10 @@ public class MapExtractor {
     private static String cachePath;
     private static String dumpPath;
 
-    private final int[] idsToDump = {-1};
+    private final int[] idsToDump = {15256};
 
     public static void main(String[] args) {
-        new MapExtractor(DefUtil.MAP_EXTRACTOR_ZENYTE_ARGS);
+        new MapExtractor(DefUtil.MAP_EXTRACTOR_210_ARGS);
     }
 
     private MapExtractor(String[] args) {
@@ -38,7 +38,7 @@ public class MapExtractor {
         for (int id : idsToDump) {
             final int regionX = id >> 8;
             final int regionY = id & 0xFF;
-            final int[] xteas = XTEALoader.getXTEAs(id);
+            final int[] xteas = XTEALoader.getXTEAKeys(id);
 
             final Group mapGroup = cache.getArchive(ArchiveType.MAPS.getId()).findGroupByName("m" + regionX + "_" + regionY);
             final Group landscapeGroup = cache.getArchive(ArchiveType.MAPS.getId()).findGroupByName("l" + regionX + "_" + regionY, xteas);
