@@ -78,6 +78,7 @@ public class MegaDumper {
         System.out.println("Model loading complete. Loaded " + modelManager.getModels().length + " models.");
 
         String jsonPath = cachePath + "/dumps/json/";
+        String tomlPath = cachePath + "/dumps/toml/";
         underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
         identikitManager.exportAllToJson(new File(jsonPath + "/identikit/"));
         overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
@@ -85,7 +86,8 @@ public class MegaDumper {
         objectManager.exportAllToJson(new File(jsonPath + "/object/"));
         enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
         npcManager.exportAllToJson(new File(jsonPath + "/npc/"));
-        itemManager.exportAllToJson(new File(jsonPath + "/item/"));
+        itemManager.exportAllToToml(new File(tomlPath + "/item/"));
+        //itemManager.exportAllToJson(new File(jsonPath + "/item/"));
         paramManager.exportAllToJson(new File(jsonPath + "/param/"));
         sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
         spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));

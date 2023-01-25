@@ -7,17 +7,18 @@ import tech.lucidsoft.cache.filesystem.Group;
 import tech.lucidsoft.cache.io.ByteBuffer;
 import tech.lucidsoft.cache.util.DefUtil;
 import tech.lucidsoft.cache.util.XTEALoader;
-
 import java.io.*;
 import java.util.*;
-
 public class MapExtractor {
 
+    private boolean isRevision210Plus = false;
     private Cache cache;
     private static String cachePath;
     private static String dumpPath;
 
-    private final int[] idsToDump = {15256};
+    private final int[] idsToDump = {14999, 15000, 15001,
+                                     15255, 15256, 15257,
+                                     15511, 15512, 15513 };
 
     public static void main(String[] args) {
         new MapExtractor(DefUtil.MAP_EXTRACTOR_210_ARGS);
@@ -48,6 +49,9 @@ public class MapExtractor {
 
             if (mapGroup != null) {
                 if (mapGroup.getFiles()[0] != null) {
+                    if (isRevision210Plus) {
+                        //byte[] convertedMapData = convertMapDataToPre210(mapGroup.getFiles()[0].getData().getBuffer());
+                    }
                     DefUtil.dumpData(mapGroup.getFiles()[0].getData().getBuffer(), dumpPath + id + "/", "m" + regionX + "_" + regionY);
                 }
             }
@@ -70,6 +74,8 @@ public class MapExtractor {
                 System.out.println("Total Objects: " + mapObjects.size() + " Unique: " + usedIds.size());
                 usedIds.sort(Comparator.comparingInt(i -> i));
                 for (int i : usedIds) {
+                    if (i < 35000)
+                        continue;
                     System.out.println(i);
                 }
             } else {
@@ -103,5 +109,4 @@ public class MapExtractor {
         }
         return collection;
     }
-
 }

@@ -20,7 +20,7 @@ public class ObjectIdListMaker {
     private ObjectManager objectManager;
 
     public static void main(String[] args) {
-        new ObjectIdListMaker(DefUtil.LIST_MAKER_ZENYTE_ARGS);
+        new ObjectIdListMaker(DefUtil.LIST_MAKER_LATEST_ARGS);
     }
 
     private ObjectIdListMaker(String[] args) {
