@@ -87,9 +87,8 @@ public class MegaDumper {
         enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
         npcManager.exportAllToJson(new File(jsonPath + "/npc/"));
         itemManager.exportAllToToml(new File(tomlPath + "/item/"));
-        //itemManager.exportAllToJson(new File(jsonPath + "/item/"));
         paramManager.exportAllToJson(new File(jsonPath + "/param/"));
-        sequenceManager.exportAllToJson(new File(jsonPath + "/seq/"));
+        sequenceManager.exportAllToToml(new File(tomlPath + "/seq/"));
         spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
         varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
         varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));

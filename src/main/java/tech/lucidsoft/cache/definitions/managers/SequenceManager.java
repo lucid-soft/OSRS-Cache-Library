@@ -38,6 +38,33 @@ public class SequenceManager {
         }
     }
 
+    public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Sequence TOML to: " + directory.getPath());
+        }
+        exportToToml(getSequenceDef(id), directory);
+    }
+
+    public void exportToToml(SequenceDefinition def, java.io.File directory) {
+        directory.mkdirs();
+
+        SequenceExporter exporter = new SequenceExporter(def);
+        try {
+            exporter.exportToToml(directory, + def.getId() + ".toml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting Sequence TOMLs to: " + directory.getPath());
+        }
+        for (SequenceDefinition def : definitions.values()) {
+            exportToToml(def, directory);
+        }
+    }
+
     public void exportToJson(int id, java.io.File directory) {
         if(isVerbose()) {
             System.out.println("Exporting Sequence JSON to: " + directory.getPath());

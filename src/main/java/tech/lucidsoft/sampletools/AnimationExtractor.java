@@ -8,12 +8,14 @@ import tech.lucidsoft.cache.filesystem.Cache;
 import tech.lucidsoft.cache.filesystem.Group;
 import tech.lucidsoft.cache.util.DefUtil;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimationExtractor {
 
     private Cache cache;
     private SequenceManager sequenceManager;
-    private static String cachePath = "./data/cache2102/";
+    private static String cachePath = "./data/zencache/";
 
     private final int idToDump = -1;
 
@@ -27,17 +29,12 @@ public class AnimationExtractor {
         loadSequenceDefinitions(cache);
 
         //checkForItem(27644);
-        dumpGroup(3293);
-        /*dumpAnimation(9846); //?
-        dumpAnimation(9847); //standing idle
-        dumpAnimation(9848); //throwing card
-        dumpAnimation(9849); //walking
-        dumpAnimation(9850); //running
-        dumpAnimation(9851); //turn counter-clockwise
-        dumpAnimation(9852); //turn 180
-        dumpAnimation(9853); //block stance
-        dumpAnimation(9854); //?*/
-        //dumpAnimation(9960);
+        //dumpGroup(3293);
+        dumpAnimation(15094);
+        dumpAnimation(15093);
+        dumpAnimation(15084);
+        dumpAnimation(15018);
+        dumpAnimation(15023);
     }
 
     public void loadSequenceDefinitions(Cache cache) {
@@ -71,15 +68,7 @@ public class AnimationExtractor {
         // Exports the frames
         int frameGroup = ids[0] >> 16;
         System.out.println("Frame group = " + frameGroup);
-        Group skeleGroup = skeletonArchive.findGroupByID(frameGroup);
-        int baseId = -1;
-        for (int i = 0; i < ids.length; i++) {
-            int fileId = ids[i] & 0xFFFF;
-            byte[] frameBuffer = skeleGroup.findFileByID(fileId).getData().getBuffer();
-            baseId = (frameBuffer[0] & 255) << 8 | frameBuffer[1] & 255;
-            DefUtil.dumpData(frameBuffer,  dumpBaseOutput + "/frames/", fileId + "");
-        }
-
+        dumpGroup(frameGroup, def.getId());
 
         // Exports the sounds
         if (def.getFrameSounds() != null) {
@@ -93,31 +82,44 @@ public class AnimationExtractor {
         }
 
         // Exports the animation base
+        byte[] frameBuffer = skeletonArchive.findGroupByID(frameGroup).getFiles()[0].getData().getBuffer();
+        int baseId = (frameBuffer[0] & 255) << 8 | frameBuffer[1] & 255;
+
         if (baseId != -1) {
             byte[] baseBuffer = baseArchive.findGroupByID(baseId).getFiles()[0].getData().getBuffer();
             DefUtil.dumpData(baseBuffer, dumpBaseOutput + "/base/", baseId + "");
         }
 
         // Exports the animation definition
-        sequenceManager.exportToJson(def, new File(dumpBaseOutput + "/"));
+        sequenceManager.exportToToml(def, new File(dumpBaseOutput + "/"));
+        //sequenceManager.exportToJson(def, new File(dumpBaseOutput + "/"));
     }
 
-    private void dumpGroup(int id) {
-        final String dumpBaseOutput = "./data/dumps/2102/animations/";
+    private void dumpGroup(int id, int animid) {
+        final String dumpBaseOutput = "./data/dumps/2102/animations/" + animid + "/frames/";
         final Archive skeletonArchive = cache.getArchive(ArchiveType.SKELETONS);
         final Group skeletonGroup = skeletonArchive.findGroupByID(id);
         final tech.lucidsoft.cache.filesystem.File[] skeletonFiles = skeletonGroup.getFiles();
 
-        int i = 0;
-        for (tech.lucidsoft.cache.filesystem.File f : skeletonFiles) {
-            if (f == null) {
-                System.out.println("Group " + id + ", file " + i + " is null");
+        List<Integer> used = new ArrayList<>();
+        for (int i = 0; i < skeletonGroup.getHighestFileId(); i++) {
+            if (skeletonGroup.findFileByID(i) == null) {
                 continue;
             }
-            byte[] fileBuffer = f.getData().getBuffer();
-            DefUtil.dumpData(fileBuffer, dumpBaseOutput + "/groups/" + id + "/", f.getID() + "");
-            i++;
+            used.add(i);
+            byte[] fileBuffer = skeletonGroup.findFileByID(i).getData().getBuffer();
+            DefUtil.dumpData(fileBuffer, dumpBaseOutput, i + "");
         }
+        System.out.print("final int[] group" + id + "Ids = { ");
+        for(int i = 0; i < used.size(); i++) {
+            if(i < used.size() - 1) {
+                System.out.print(used.get(i) + ", ");
+            } else {
+                System.out.print(used.get(i));
+            }
+        }
+        System.out.println(" };");
+
     }
 
     public void checkForItem(int id) {
