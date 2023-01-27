@@ -15,7 +15,7 @@ public class AnimationExtractor {
 
     private Cache cache;
     private SequenceManager sequenceManager;
-    private static String cachePath = "./data/zencache/";
+    private static String cachePath = "./data/cache2102/";
 
     private final int idToDump = -1;
 
@@ -30,11 +30,9 @@ public class AnimationExtractor {
 
         //checkForItem(27644);
         //dumpGroup(3293);
-        dumpAnimation(15094);
-        dumpAnimation(15093);
-        dumpAnimation(15084);
-        dumpAnimation(15018);
-        dumpAnimation(15023);
+        for(SequenceDefinition def : sequenceManager.getDefinitions().values()) {
+            dumpAnimation(def.getId());
+        }
     }
 
     public void loadSequenceDefinitions(Cache cache) {

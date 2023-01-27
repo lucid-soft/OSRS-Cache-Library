@@ -131,8 +131,7 @@ public class NpcLoader {
                 {
                     int bitfield = buffer.readUnsignedByte();
                     int len = 0;
-                    for (int var5 = bitfield; var5 != 0; var5 >>= 1)
-                    {
+                    for (int var5 = bitfield; var5 != 0; var5 >>= 1) {
                         ++len;
                     }
 

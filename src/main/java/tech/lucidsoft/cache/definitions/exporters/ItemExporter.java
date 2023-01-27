@@ -111,35 +111,39 @@ public class ItemExporter {
         } else if (member instanceof String) {
             out += memberName + "=" + "\"" + member + "\"" + newline();
         } else if (member instanceof int[]) {
-            out += memberName + "=[";
-            if (member != null) {
-                int[] casted = (int[]) member;
-                for (int i = 0; i < casted.length; i++) {
-                    out += casted[i];
-                    if (i != casted.length - 1) {
-                        out += ", ";
+            if(((int[]) member).length > 0) {
+                out += memberName + "=[";
+                if (member != null) {
+                    int[] casted = (int[]) member;
+                    for (int i = 0; i < casted.length; i++) {
+                        out += casted[i];
+                        if (i != casted.length - 1) {
+                            out += ", ";
+                        }
                     }
                 }
+                out += " ]" + newline();
             }
-            out += " ]" + newline();
         } else if (member instanceof short[]) {
-            out += memberName + "=[";
-            if (member != null) {
-                short[] casted = (short[]) member;
-                for (int i = 0; i < casted.length; i++) {
-                    out += casted[i];
-                    if (i != casted.length - 1) {
-                        out += ", ";
+            if(((short[]) member).length > 0) {
+                out += memberName + "=[";
+                if (member != null) {
+                    short[] casted = (short[]) member;
+                    for (int i = 0; i < casted.length; i++) {
+                        out += casted[i];
+                        if (i != casted.length - 1) {
+                            out += ", ";
+                        }
                     }
                 }
+                out += "]" + newline();
             }
-            out += "]" + newline();
         } else if (member instanceof String[]) {
             out += memberName + "=[";
             if (member != null) {
                 String[] casted = (String[]) member;
                 for (int i = 0; i < casted.length; i++) {
-                    out += "\"" + (casted[i] == null ? "" : casted[i]) + "\"";
+                    out += "\"" + (casted[i] != null ? casted[i] : "") + "\"";
                     if (i != casted.length - 1) {
                         out += ", ";
                     }

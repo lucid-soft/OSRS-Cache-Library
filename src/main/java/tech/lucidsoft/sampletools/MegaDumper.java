@@ -79,21 +79,21 @@ public class MegaDumper {
 
         String jsonPath = cachePath + "/dumps/json/";
         String tomlPath = cachePath + "/dumps/toml/";
-        underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
-        identikitManager.exportAllToJson(new File(jsonPath + "/identikit/"));
-        overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
-        inventoryManager.exportAllToJson(new File(jsonPath + "/inv/"));
-        objectManager.exportAllToJson(new File(jsonPath + "/object/"));
-        enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
-        npcManager.exportAllToJson(new File(jsonPath + "/npc/"));
+        // underlayManager.exportAllToJson(new File(jsonPath + "/underlay/"));
+        // .exportAllToJson(new File(jsonPath + "/identikit/"));
+        // overlayManager.exportAllToJson(new File(jsonPath + "/overlay/"));
+        // inventoryManager.exportAllToJson(new File(jsonPath + "/inv/"));
+        // objectManager.exportAllToJson(new File(jsonPath + "/object/"));
+        // enumManager.exportAllToJson(new File(jsonPath + "/enum/"));
+        npcManager.exportAllToToml(new File(tomlPath + "/npc/"));
         itemManager.exportAllToToml(new File(tomlPath + "/item/"));
-        paramManager.exportAllToJson(new File(jsonPath + "/param/"));
+        // paramManager.exportAllToJson(new File(jsonPath + "/param/"));
         sequenceManager.exportAllToToml(new File(tomlPath + "/seq/"));
-        spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
-        varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
-        varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
-        hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
-        hitbarManager.exportAllToJson(new File(jsonPath + "/hitbar/"));
+        // spotanimManager.exportAllToJson(new File(jsonPath + "/spotanim/"));
+        // varbitManager.exportAllToJson(new File(jsonPath + "/varbit/"));
+        // varclientManager.exportAllToJson(new File(jsonPath + "/varclient/"));
+        // hitmarkManager.exportAllToJson(new File(jsonPath + "/hitmark/"));
+        // hitbarManager.exportAllToJson(new File(jsonPath + "/hitbar/"));
 
         spriteManager.export(new File(cachePath + "/dumps/sprites/"));
 

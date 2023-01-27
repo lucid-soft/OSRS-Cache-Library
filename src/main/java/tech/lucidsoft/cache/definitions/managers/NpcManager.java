@@ -38,6 +38,34 @@ public class NpcManager {
         }
     }
 
+    public void exportToToml(int id, java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting NPC TOML to: " + directory.getPath());
+        }
+        exportToToml(getNpcDef(id), directory);
+    }
+
+    public void exportToToml(NpcDefinition def, java.io.File directory) {
+        directory.mkdirs();
+
+        NpcExporter exporter = new NpcExporter(def);
+        String cleansedName = DefUtil.cleanseName(def.getName());
+        try {
+            exporter.exportToToml(directory, + def.getId() + "_" + cleansedName + ".toml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportAllToToml(java.io.File directory) {
+        if(isVerbose()) {
+            System.out.println("Exporting NPC TOMLs to: " + directory.getPath());
+        }
+        for (NpcDefinition def : definitions.values()) {
+            exportToToml(def, directory);
+        }
+    }
+
     public void exportToJson(int id, java.io.File directory) {
         if(isVerbose()) {
             System.out.println("Exporting NPC JSON to: " + directory.getPath());
